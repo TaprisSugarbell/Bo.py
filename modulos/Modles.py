@@ -7,7 +7,7 @@ import pyshorteners
 from dotenv import load_dotenv
 from telegram import parsemode
 from telegram.utils.helpers import escape_markdown, mention_html, mention_markdown
-from telegram import ChatAction, InlineKeyboardMarkup, InlineKeyboardButton, replymarkup
+from telegram import ChatAction, InlineKeyboardMarkup, InlineKeyboardButton, replymarkup, ParseMode
 from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler,ConversationHandler, MessageHandler, Filters, commandhandler
 
 
@@ -132,6 +132,6 @@ def input_password(update, context):
         timeout=None
         )
     chat.send_message(
-        text=f"Tu contraseña es: {s}",
+        text=f"Tu contraseña es: <code>{s}</code>", parse_mode=ParseMode.HTML,
     )
     return ConversationHandler.END
