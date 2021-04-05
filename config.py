@@ -1,9 +1,11 @@
 import os
+from dotenv import load_dotenv
 
 class Config(object):
 
+    load_dotenv()
     # Obtener un token de bot de botfather
-    TOKEN = os.environ.get("TOKEN", "")
+    TOKEN = os.getenv('TOKEN')
 
 
 
