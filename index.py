@@ -1,3 +1,4 @@
+from config import Config
 from modulos.Modles import *
 from telegram import ChatAction, InlineKeyboardMarkup, InlineKeyboardButton, replymarkup
 from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler,ConversationHandler, MessageHandler, Filters, commandhandler
@@ -18,7 +19,7 @@ def start(update, context):
 
 
 if __name__ == '__main__':
-    updater = Updater(token=TOKEN, use_context=True)
+    updater = Updater(token=Token, use_context=True)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler('start', start))
 

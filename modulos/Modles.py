@@ -4,6 +4,7 @@ import string
 import qrcode
 import telegram
 import pyshorteners
+from config import Config
 from dotenv import load_dotenv
 from telegram import parsemode
 from telegram.utils.helpers import escape_markdown, mention_html, mention_markdown
@@ -12,9 +13,7 @@ from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler,Conversa
 
 
 # VARIABLES
-load_dotenv()
-key = os.getenv('key')
-TOKEN = os.getenv('TOKEN')
+Token = Config.TOKEN
 INPUTEXT = 0
 INPUTURL = 0
 INPUTNUM = 0
