@@ -132,6 +132,6 @@ def input_password(update, context):
         timeout=None
         )
     chat.send_message(
-        text=f"Tu contraseña es: <code>{s}</code>", parse_mode=ParseMode.HTML,
+        text=f"Tu contraseña es: `{s}`", parse_mode=ParseMode.MARKDOWN,
     )
     return ConversationHandler.END
