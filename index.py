@@ -1,4 +1,3 @@
-from config import Config
 from modulos.Modles import *
 from telegram import ChatAction, InlineKeyboardMarkup, InlineKeyboardButton, replymarkup
 from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler,ConversationHandler, MessageHandler, Filters, commandhandler
