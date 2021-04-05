@@ -15,7 +15,7 @@ from selenium.webdriver.common.keys import Keys
 load_dotenv()
 #Variables
 key = os.getenv('key')
-
+TOKEN = os.getenv('TOKEN')
 
 
 
