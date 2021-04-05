@@ -2,7 +2,6 @@ import os
 import random
 import string
 import qrcode
-import telegram
 import pyshorteners
 from config import Config
 from dotenv import load_dotenv
