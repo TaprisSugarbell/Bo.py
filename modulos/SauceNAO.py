@@ -8,7 +8,6 @@ import youtube_dl
 from dotenv import load_dotenv
 from selenium import webdriver
 from tkinter import filedialog
-from clipboard import copy, paste
 from selenium.webdriver.common.keys import Keys
 
 
@@ -18,17 +17,11 @@ key = os.getenv('key')
 TOKEN = os.getenv('TOKEN')
 
 
-
-
-
-
-
-
 def SearchSauceNAO():
     root = tkinter.Tk()
     root.withdraw()
     pimg = filedialog.askopenfilename()
-    driver = webdriver.Chrome('C:/Users/sayu/PycharmProjects/pythontests/pr2/Selenium_py/chromedriver.exe')
+    driver = webdriver.Chrome('chromedriver.exe')
     driver.get('https://saucenao.com/')
 
     img_upload = driver.find_elements_by_xpath("//input[@type='file']")
@@ -38,24 +31,15 @@ def SearchSauceNAO():
     search.click()
     print('Cargando imagenes similares')
 
-def Shortpy():
-    print('Ingresa URL: ')
-    try:
-        short = paste()
-    except:
-        short = input('Ingresa URL: ')
+def Shortpy(short):
     print(short)
-    alias = input('Quieres elegir alias?: ')
+    alias = input('Ingresa alias - ')
     url = urllib.parse.quote(f'{short}')
     name  = f'{alias}'
     r = requests.get('http://cutt.ly/api/api.php?key={}&short={}&name={}'.format(key, url, name))
     data = r.json()["url"]
     if data["status"] == 7:
         sl = data["shortLink"]
-        try:
-            copy(sl)
-        except:
-            pass
         print("Link Acortado:", sl)
     else:
         print("[!] Error Acortando el Link:", data)
@@ -95,8 +79,6 @@ def Password():
     for i in range(n):
         s += random.choice(c)
 
-
-    copy(s)
     print('Tu contraseña es:', s)
 
 def mp3():
@@ -132,9 +114,6 @@ def mp3():
     # Descargar el Video
     with youtube_dl.YoutubeDL(opciones) as ydl:
         ydl.download([url])
-
-
-
 
 
 

@@ -1,2 +1,3 @@
 /modulos/.env
 **/__pycache__
+/modulos/Pipfile.lock
