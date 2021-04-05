@@ -8,7 +8,6 @@ qrcode = "*"
 python-dotenv = "*"
 selenium = "*"
 youtube-dl = "*"
-clipboard = "*"
 pillow = "*"
 
 [dev-packages]

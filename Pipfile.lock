@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1412a22de77cc6a95d49d7299387ed594be21d304b3168f26c4dda666b229a86"
+            "sha256": "b429555cbd7df637029772c8ba7a896835e106256abfb3680197d856b23a645a"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,21 +16,6 @@
         ]
     },
     "default": {
-        "clipboard": {
-            "hashes": [
-                "sha256:a72a78e9c9bf68da1c3f29ee022417d13ec9e3824b511559fd2b702b1dd5b817"
-            ],
-            "index": "pypi",
-            "version": "==0.0.4"
-        },
-        "colorama": {
-            "hashes": [
-                "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b",
-                "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"
-            ],
-            "markers": "platform_system == 'Windows'",
-            "version": "==0.4.4"
-        },
         "pillow": {
             "hashes": [
                 "sha256:01425106e4e8cee195a411f729cff2a7d61813b0b11737c12bd5991f5f14bcd5",
@@ -69,12 +54,6 @@
             ],
             "index": "pypi",
             "version": "==8.2.0"
-        },
-        "pyperclip": {
-            "hashes": [
-                "sha256:105254a8b04934f0bc84e9c24eb360a591aaf6535c9def5f29d92af107a9bf57"
-            ],
-            "version": "==1.8.2"
         },
         "python-dotenv": {
             "hashes": [
