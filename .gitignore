@@ -1,3 +1,4 @@
 /modulos/.env
 **/__pycache__
-/modulos/Pipfile.lock
+/Pipfile.lock
+/.vscode/
