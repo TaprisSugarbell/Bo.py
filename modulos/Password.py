@@ -7,9 +7,14 @@ from telegram.ext import ConversationHandler
 INPUTNUM = 0
 
 # Password
-def pswcommand(update, context):
-    update.message.reply_text('Parámetros\n1. Alfabeto\n2. Mayúsculas\n3. Minúsculas\n4. Números\n5. Alfanumérico\n6. Alfanumérico y Símbolos\nIngresa el número de tu elección y/o la longitud,\npor defecto "8"\nPor ejemplo 5 20, crea una contraseña alfanumérica de 20 caracteres.')
-    return INPUTNUM
+def pswcommand(update, context, prmt, lngt):
+    if prmt > 0:
+        return INPUTNUM
+    elif lngt > 8:
+        return INPUTNUM
+    else:
+        update.message.reply_text('Parámetros\n1. Alfabeto\n2. Mayúsculas\n3. Minúsculas\n4. Números\n5. Alfanumérico\n6. Alfanumérico y Símbolos\nIngresa el número de tu elección y/o la longitud,\npor defecto "8"\nPor ejemplo 5 20, crea una contraseña alfanumérica de 20 caracteres.')
+        return INPUTNUM
 
 
 def password_callback_handler(update, context):
