@@ -10,7 +10,7 @@
     ],
     "repository": "https://github.com/TaprisSugarbell/Bo.py",
     "success_url": "https://telegram.dog/SayuCodez",
-    "env": {
+    "modulos/env": {
         "TOKEN": {
             "description": "Tu Token de Telegram de @BotFather",
             "value": ""
