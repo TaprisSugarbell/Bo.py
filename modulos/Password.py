@@ -12,7 +12,7 @@ def pswcommand(update, context):
     pfaw = text.split()
     try:
         pfa = int(pfaw[1:])
-        password = pfa
+        pswrd = pfa
     except:
         pfa = 0
     try:
@@ -24,7 +24,7 @@ def pswcommand(update, context):
             pass
     except:
         pass
-    return INPUTNUM, password
+    return INPUTNUM, pswrd
 
 
 def password_callback_handler(update, context):
@@ -36,7 +36,10 @@ def password_callback_handler(update, context):
 
 
 def input_password(update, context):
-    password = update.message.text
+    try:
+        password = pswrd
+    except:
+        password = update.message.text
     chat = update.message.chat
     s = ''
     afn = password.split()
@@ -63,8 +66,6 @@ def input_password(update, context):
     for i in range(n):
         s += random.choice(c)
 
-    #asdfghjk = s.format(parsemode=parsemode.ParseMode.MARKDOWN)
-    #print(asdfghjk)
     chat.send_action(
         action=ChatAction.TYPING,
         timeout=None
