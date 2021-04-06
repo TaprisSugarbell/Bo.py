@@ -13,7 +13,7 @@
 
 > Generates a password by taking 2 parameters
 
-> Parameters
+Parameters
 > 1. Alphabet
 > 2. Upper case
 > 3. Lower case
