@@ -4,7 +4,6 @@ import string
 import qrcode
 import pyshorteners
 from config import Config
-from dotenv import load_dotenv
 from telegram import parsemode
 from telegram.utils.helpers import escape_markdown, mention_html, mention_markdown
 from telegram import ChatAction, InlineKeyboardMarkup, InlineKeyboardButton, replymarkup, ParseMode
