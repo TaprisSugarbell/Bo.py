@@ -9,7 +9,7 @@ INPUTNUM = 0
 # Password
 def pswcommand(update, context):
     print(update)
-    pfaw = update.split(',')
+    pfaw = update.text.split(',')
     print(pfaw)
     update.message.reply_text('Parámetros\n1. Alfabeto\n2. Mayúsculas\n3. Minúsculas\n4. Números\n5. Alfanumérico\n6. Alfanumérico y Símbolos\nIngresa el número de tu elección y/o la longitud,\npor defecto "8"\nPor ejemplo 5 20, crea una contraseña alfanumérica de 20 caracteres.')
     return INPUTNUM
