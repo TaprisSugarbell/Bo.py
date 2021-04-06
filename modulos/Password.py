@@ -10,9 +10,18 @@ INPUTNUM = 0
 def pswcommand(update, context):
     text = update.message.text
     pfaw = text.split()
-    print(pfaw)
-    update.message.reply_text('Parámetros\n1. Alfabeto\n2. Mayúsculas\n3. Minúsculas\n4. Números\n5. Alfanumérico\n6. Alfanumérico y Símbolos\nIngresa el número de tu elección y/o la longitud,\npor defecto "8"\nPor ejemplo 5 20, crea una contraseña alfanumérica de 20 caracteres.')
-    return INPUTNUM
+    try:
+        pfa = int(pfaw[1:])
+        password = pfa
+    except:
+        pfa = 0
+    if pfa[1] <= 0:
+        update.message.reply_text('Parámetros\n1. Alfabeto\n2. Mayúsculas\n3. Minúsculas\n4. Números\n5. Alfanumérico\n6. Alfanumérico y Símbolos\nIngresa el número de tu elección y/o la longitud,\npor defecto "8"\nPor ejemplo 5 20, crea una contraseña alfanumérica de 20 caracteres.')
+    elif pfa[2] <= 8:
+        update.message.reply_text('Parámetros\n1. Alfabeto\n2. Mayúsculas\n3. Minúsculas\n4. Números\n5. Alfanumérico\n6. Alfanumérico y Símbolos\nIngresa el número de tu elección y/o la longitud,\npor defecto "8"\nPor ejemplo 5 20, crea una contraseña alfanumérica de 20 caracteres.')
+    else:
+        pass
+    return INPUTNUM, password
 
 
 def password_callback_handler(update, context):
