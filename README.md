@@ -21,7 +21,6 @@
 > 6. Alphanumeric and Symbols
 > Enter the number of your choice and/or the length,
 > default "8".
-> 
 > For example /pwd 5 20, creates a 20 character alphanumeric password.
 
 ## Installation
