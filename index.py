@@ -1,8 +1,9 @@
-from modulos.Modles import *
-from telegram import ChatAction, InlineKeyboardMarkup, InlineKeyboardButton, replymarkup
+from modulos.QR import *
+from modulos.URL import *
+from modulos.Password import *
+from modulos.Modles import Token
+from telegram import InlineKeyboardMarkup, InlineKeyboardButton, replymarkup
 from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler,ConversationHandler, MessageHandler, Filters, commandhandler
-
-
 
 def start(update, context):
     update.message.reply_text(
