@@ -1,9 +1,28 @@
 # Bo.py
 
 ## Commands
-/start
-/qr
-/pwd
+- /start
+
+Start the bot
+
+- /qr
+
+Generate a QR code from text
+
+- /pwd
+
+### Generates a password by taking 2 parameters
+
+Parameters
+1. Alphabet
+2. Upper case
+3. Lower case
+4. Numbers
+5. Alphanumeric
+6. Alphanumeric and Symbols
+Enter the number of your choice and/or the length,
+default "8".
+For example /pwd 5 20, creates a 20 character alphanumeric password.
 
 ## Installation
 
