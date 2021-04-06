@@ -36,7 +36,7 @@ pipenv shell
 pip install -r requirements.txt
 cp sample_config.py config.py
 --- EDIT config.py values appropriately ---
-python bot.py
+python index.py
 ```
 
 or
@@ -46,7 +46,7 @@ pipenv shell
 pipenv install -r requirements.txt
 cp sample_config.py config.py
 --- EDIT config.py values appropriately ---
-python bot.py
+python index.py
 ```
 
 #### LICENSE
