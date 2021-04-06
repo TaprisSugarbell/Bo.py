@@ -6,7 +6,7 @@ from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler,Conversa
 
 def start(update, context):
     update.message.reply_text(
-        text='Hola bienvenido a Bopy',
+        text='Hola bienvenido a Bopy\n/qr - Genera QR a partir de un texto\n/url - Acorta un link\n/psw - Genera contraseña',
         reply_markup=InlineKeyboardMarkup([
             [InlineKeyboardButton(text='Generar QR', callback_data='qr'), 
             InlineKeyboardButton(text='Acortar URL', callback_data='url')],
@@ -24,19 +24,22 @@ if __name__ == '__main__':
 
     # Generate QR
     dp.add_handler(ConversationHandler(
-        entry_points=[CallbackQueryHandler(pattern='qr', callback=qr_callback_handler)], 
+        entry_points=[CommandHandler('qr', qrcommand),
+        CallbackQueryHandler(pattern='qr', callback=qr_callback_handler)], 
         states={INPUTEXT: [MessageHandler(Filters.text, input_text)]}, 
         fallbacks=[]))
 
     # SHORT URL
     dp.add_handler(ConversationHandler(
-        entry_points=[CallbackQueryHandler(pattern='url', callback=url_callback_handler)], 
+        entry_points=[CommandHandler('url', urlcommand),
+        CallbackQueryHandler(pattern='url', callback=url_callback_handler)], 
             states={INPUTURL: [MessageHandler(Filters.text, input_url)]}, 
             fallbacks=[]))
     
     # Random Password
     dp.add_handler(ConversationHandler(
-        entry_points=[CallbackQueryHandler(pattern='psw', callback=password_callback_handler)],
+        entry_points=[CommandHandler('psw', pswcommand),
+        CallbackQueryHandler(pattern='psw', callback=password_callback_handler)],
         states={INPUTNUM: [MessageHandler(Filters.text, input_password)]},
         fallbacks=[]))
     

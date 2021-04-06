@@ -4,7 +4,6 @@ import string
 import qrcode
 import pyshorteners
 from config import Config
-from telegram import parsemode
 from telegram.utils.helpers import escape_markdown, mention_html, mention_markdown
 from telegram import ChatAction, InlineKeyboardMarkup, InlineKeyboardButton, replymarkup, ParseMode
 from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler,ConversationHandler, MessageHandler, Filters, commandhandler
@@ -18,8 +17,9 @@ INPUTNUM = 0
 
 # QR
 def qrcommand(update, context):
-    update.message.reply_text('Enviame texto para hacerlo qr')
+    update.message.reply_text('Enviame texto para hacerlo QR')
     return INPUTEXT
+
 
 def qr_callback_handler(update, context):
     query = update.callback_query
@@ -28,6 +28,7 @@ def qr_callback_handler(update, context):
         text='Enviame texto para hacerlo QR'
     )
     return INPUTEXT
+
 
 def generate_qr(text):
     filename = text + '.jpg'
@@ -54,7 +55,15 @@ def input_text(update, context):
 
 
 
+
+
+
 # URL
+def urlcommand(update, context):
+    update.message.reply_text('Enviame url para acortarlo')
+    return INPUTURL
+
+
 def url_callback_handler(update, context):
     query = update.callback_query
     query.answer()
@@ -86,13 +95,19 @@ def input_url(update, context):
 
 
 
+# Password
+def pswcommand(update, context):
+    update.message.reply_text('Parámetros\n1. Alfabeto\n2. Mayúsculas\n3. Minúsculas\n4. Números\n5. Alfanumérico\n6. Alfanumérico y Símbolos\nIngresa el número de tu elección y/o la longitud,\npor defecto "8"\nPor ejemplo 5 20, crea una contraseña alfanumérica de 20 caracteres.')
+    return INPUTNUM
+
 
 def password_callback_handler(update, context):
     query = update.callback_query
     query.answer()
     query.edit_message_text(
-        text='Parámetros\n1. Alfabeto\n2. Mayúsculas\n3. Minúsculas\n4. Números\n5. Alfanumérico\n6. Alfanumérico y Símbolos\nIngresa el número de tu elección y/o la longitud,\npor defecto "8"')
+        text='Parámetros\n1. Alfabeto\n2. Mayúsculas\n3. Minúsculas\n4. Números\n5. Alfanumérico\n6. Alfanumérico y Símbolos\nIngresa el número de tu elección y/o la longitud,\npor defecto "8"\nPor ejemplo 5 20, crea una contraseña alfanumérica de 20 caracteres.')
     return INPUTNUM
+
 
 def input_password(update, context):
     password = update.message.text
