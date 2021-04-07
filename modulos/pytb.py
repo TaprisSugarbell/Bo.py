@@ -51,6 +51,7 @@ def generate_pytb(text):
             with open('logs.txt', 'a') as outfile:
                 outfile.write('Se descargo: {} {}\n'.format(data, now))
             q.task_done()
+            return filename
 
 
     # Set up some threads
