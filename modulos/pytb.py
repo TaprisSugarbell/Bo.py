@@ -22,63 +22,8 @@ def pytb_callback_handler(update, context):
     return INPUTpy
 
 def generate_pytb(text):
-    with open('cola.txt', 'a') as csf:
-        csf.write(text + '\n')
-
-    q = Queue()
-    num_threads = 1
-    now = datetime.now()
-
-    with open('cola.txt', 'r') as pyk:
-        pyk = pyk.readlines()
-
-    urls = [
-        pyk
-    ]
-
-    def message(s):
-        print('{}: {}'.format(threading.current_thread().name, s))
-
-    def download(q):
-        while True:
-            message('Buscando en la próxima fila')
-            url = q.get()
-            data = pytube.YouTube(url).title
-            message('Descargando {}'.format(data))
-            filename = pytube.YouTube(url).streams.first().download()
-            # Save the downloaded file to the current directory
-            message('Escribiendo como: {}'.format(data))
-            with open('logs.txt', 'a') as outfile:
-                outfile.write('Se descargo: {} {}\n'.format(data, now))
-            q.task_done()
-            return filename
-
-
-    # Set up some threads
-    for i in range(num_threads):
-        worker = threading.Thread(
-            target=download,
-            args=(q,),
-            name='\nworker-{}'.format(i),
-        )
-        worker.setDaemon(True)
-        worker.start()
-
-    for url in urls:
-        stng = ''.join(url)
-        lstng = stng.split()
-        for msg in lstng:
-            message('queuing {}'.format(
-                msg))
-            q.put(msg)
-
-
-    # Se procesaron todas las descargas.
-    message('*** Cola principal en espera')
-    namev = pytube.YouTube(q.get()).title
-    filename = namev + '.mp4'
-    q.join()
-    message('*** Hecho')
+    url = text
+    filename = pytube.YouTube(url).streams.first().download()
     return filename
 
 def send_pytb(filename, chat):
