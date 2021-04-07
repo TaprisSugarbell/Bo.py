@@ -74,6 +74,8 @@ def generate_pytb(text):
 
     # Se procesaron todas las descargas.
     message('*** Cola principal en espera')
+    namev = pytube.YouTube(q.get()).title
+    filename = namev + '.mp4'
     q.join()
     message('*** Hecho')
     return filename
