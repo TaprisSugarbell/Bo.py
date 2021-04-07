@@ -1,7 +1,7 @@
 import os
-if bool(os.environ.get("WEBHOOK", False)):
+try:
     from sample_config import Config
-else:
+except:
     from config import Config
 
 # Variables
