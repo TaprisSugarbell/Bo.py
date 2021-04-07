@@ -35,7 +35,6 @@ def send_pytb(filename, chat):
         video=open(filename, 'rb')
     )
     os.unlink(filename)
-    os.remove('cola.txt')
 
 def input_pytb(update, context):
     text = update.message.text
