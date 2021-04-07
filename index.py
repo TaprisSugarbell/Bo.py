@@ -1,5 +1,6 @@
 from modulos.QR import *
 from modulos.URL import *
+from modulos.pytb import *
 from modulos.Password import *
 from modulos.Modles import Token
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton, replymarkup
@@ -11,7 +12,8 @@ def start(update, context):
         reply_markup=InlineKeyboardMarkup([
             [InlineKeyboardButton(text='Generar QR', callback_data='qr'), 
             InlineKeyboardButton(text='Acortar URL', callback_data='url')],
-            [InlineKeyboardButton(text='Generador de Contraseña', callback_data='pwd')],
+            [InlineKeyboardButton(text='Generador de Contraseña', callback_data='pwd'), 
+            InlineKeyboardButton(text='Descargar Video', callback_data='pytb')],
             [InlineKeyboardButton(
                 text='Repositorio', url='https://github.com/TaprisSugarbell/Bo.py/tree/master')],
         ])
@@ -42,6 +44,13 @@ if __name__ == '__main__':
         entry_points=[CommandHandler('pwd', input_password),
         CallbackQueryHandler(pattern='pwd', callback=password_callback_handler)],
         states={INPUTNUM: [MessageHandler(Filters.text, input_password)]},
+        fallbacks=[]))
+
+        # Pytube
+    dp.add_handler(ConversationHandler(
+        entry_points=[CommandHandler('pytb', pytbcommand),
+        CallbackQueryHandler(pattern='pytb', callback=pytb_callback_handler)],
+        states={INPUTpy: [MessageHandler(Filters.text, input_pytb)]},
         fallbacks=[]))
     
     # add handler
