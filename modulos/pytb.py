@@ -26,7 +26,7 @@ def generate_pytb(text):
         csf.write(text + '\n')
 
     q = Queue()
-    num_threads = 2
+    num_threads = 1
     now = datetime.now()
 
     with open('cola.txt', 'r') as pyk:
