@@ -24,8 +24,6 @@ def pytb_callback_handler(update, context):
 def generate_pytb(text):
     with open('cola.txt', 'a') as csf:
         csf.write(text + '\n')
-    filename = pytube.YouTube(url).streams.first().download()
-
 
     q = Queue()
     num_threads = 2
