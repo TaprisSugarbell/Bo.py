@@ -11,7 +11,7 @@ def start(update, context):
         reply_markup=InlineKeyboardMarkup([
             [InlineKeyboardButton(text='Generar QR', callback_data='qr'), 
             InlineKeyboardButton(text='Acortar URL', callback_data='url')],
-            [InlineKeyboardButton(text='Generador de Contraseña', callback_data='psw')],
+            [InlineKeyboardButton(text='Generador de Contraseña', callback_data='pwd')],
             [InlineKeyboardButton(
                 text='Repositorio', url='https://github.com/TaprisSugarbell/Bo.py/tree/master')],
         ])
