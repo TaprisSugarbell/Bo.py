@@ -7,7 +7,7 @@ from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler,Conversa
 
 def start(update, context):
     update.message.reply_text(
-        text='Hola bienvenido a Bopy\n/qr - Genera QR a partir de un texto\n/url - Acorta un link\n/psw - Genera contraseña',
+        text='Hola bienvenido a Bopy\n/qr - Genera QR a partir de un texto\n/url - Acorta un link\n/pwd - Genera contraseña',
         reply_markup=InlineKeyboardMarkup([
             [InlineKeyboardButton(text='Generar QR', callback_data='qr'), 
             InlineKeyboardButton(text='Acortar URL', callback_data='url')],
