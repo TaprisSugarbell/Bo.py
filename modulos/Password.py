@@ -27,7 +27,10 @@ def input_password(update, context):
         chat = update.message.chat
         s = ''
         afn = pswrd.split()
-        m = int(afn[0])
+        try:
+            m = int(afn[0])
+        except:
+            m = 5
         try:
             n = int(afn[1])
         except IndexError:
@@ -65,7 +68,10 @@ def input_password(update, context):
         chat = update.message.chat
         s = ''
         afn = password.split()
-        m = int(afn[0])
+        try:
+            m = int(afn[0])
+        except:
+            m = 5
         try:
             n = int(afn[1])
         except IndexError:
