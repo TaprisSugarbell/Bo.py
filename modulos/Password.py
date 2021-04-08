@@ -35,8 +35,8 @@ def input_password(update, context):
             n = int(afn[1])
         except IndexError:
             n = 8
-        if afn > 6:
-            n = afn
+        if pswrd > 6:
+            n = pswrd
         else:
             pass
         if m == 1:
@@ -79,8 +79,8 @@ def input_password(update, context):
             n = int(afn[1])
         except IndexError:
             n = 8
-        if afn > 6:
-                    n = afn
+        if pswrd > 6:
+            n = pswrd
         else:
             pass
         if m == 1:
