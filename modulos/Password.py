@@ -35,7 +35,10 @@ def input_password(update, context):
             n = int(afn[1])
         except IndexError:
             n = 8
-
+        if afn > 6:
+            n = afn
+        else:
+            pass
         if m == 1:
             c = list(string.ascii_letters)
         elif m == 2:
@@ -76,7 +79,10 @@ def input_password(update, context):
             n = int(afn[1])
         except IndexError:
             n = 8
-
+        if afn > 6:
+                    n = afn
+        else:
+            pass
         if m == 1:
             c = list(string.ascii_letters)
         elif m == 2:
