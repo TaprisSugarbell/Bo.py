@@ -1,5 +1,5 @@
 import os
-import pytube
+import youtube_dl
 from moviepy.editor import *
 from telegram import ChatAction
 from telegram.ext import ConversationHandler
@@ -21,27 +21,44 @@ def aud_callback_handler(update, context):
 
 def generate_aud(text):
     url = text
-    nombrs = pytube.YouTube(url).title
-    filename = pytube.YouTube(url).streams.first().download()
-    song = VideoFileClip(filename).audio.write_audiofile(nombrs + '.mp3')
-    os.unlink(filename)
-    return song
+    # Obtenemos el titulo del video
+    video_info = youtube_dl.YoutubeDL().extract_info(url=url, download=False)
+    video_title = video_info['title']
 
-def send_aud(song, chat):
+    # Setear las opciones para la descarga del video
+    opciones = {
+        'format': 'bestaudio/best',
+        'outtmpl': f'modulos/{video_title}.mp3',
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
+        }],
+    }
+
+    # Descargar el Video
+    with youtube_dl.YoutubeDL(opciones) as ydl:
+        ydl.download([url])
+
+def send_aud(outtmpl, chat):
     chat.send_action(
         action=ChatAction.UPLOAD_AUDIO,
         timeout=None
     )
     chat.send_audio(
-        audio=ChatAction.UPLOAD_AUDIO,
+        audio=open(outtmpl, 'rb'),
         timeout=None
     )
-    os.unlink(song)
+    os.unlink(outtmpl)
 
 
 def input_aud(update, context):
     text = update.message.text
-    song = generate_aud(text)
+    url = text
+    video_info = youtube_dl.YoutubeDL().extract_info(url=url, download=False)
+    video_title = video_info['title']
+    outtmpl = f'modulos/{video_title}.mp3'
+    generate_aud(text)
     chat = update.message.chat
-    send_aud(song, chat)
+    send_aud(outtmpl, chat)
     return ConversationHandler.END
