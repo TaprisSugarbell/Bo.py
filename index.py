@@ -8,13 +8,13 @@ from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler,Conversa
 
 def start(update, context):
     update.message.reply_text(
-        text='Hola bienvenido a Bopy\n/qr - Genera QR a partir de un texto\n/url - Acorta un link\n/pwd - Genera contraseña\n/pytb - Descarga video de Youtube',
+        text='Hola bienvenido a Bopy\n/qr - Genera QR a partir de un texto\n/url - Acorta un link\n/pwd - Genera contraseña\n/pytb - Descarga video de Youtube\n/aud - Descarga música de Youtube',
         reply_markup=InlineKeyboardMarkup([
             [InlineKeyboardButton(text='Generar QR', callback_data='qr'), 
             InlineKeyboardButton(text='Acortar URL', callback_data='url')],
             [InlineKeyboardButton(text='Generar Contraseña', callback_data='pwd'), 
             InlineKeyboardButton(text='Descargar Video', callback_data='pytb')],
-            [InlineKeyboardButton(text='Descargar Video', callback_data='pytb')],
+            [InlineKeyboardButton(text='Descargar Audio', callback_data='pytb')],
             [InlineKeyboardButton(
                 text='Repositorio', url='https://github.com/TaprisSugarbell/Bo.py/tree/master')],
         ])
