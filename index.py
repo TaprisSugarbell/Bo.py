@@ -1,4 +1,5 @@
 from modulos.QR import *
+from modulos.aud import *
 from modulos.URL import *
 from modulos.pytb import *
 from modulos.Password import *
