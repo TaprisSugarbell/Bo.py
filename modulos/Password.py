@@ -38,7 +38,11 @@ def input_password(update, context):
             n = 8
         try:
             int(pswrd) > 6
-            n = int(pswrd)
+            n7 = int(pswrd)
+            if n7 == 7:
+                n = n7 + 1
+            else:
+                n = n7
         except:
             pass
         if m == 1:
@@ -82,7 +86,11 @@ def input_password(update, context):
             n = 8
         try:
             int(pswrd) > 6
-            n = int(pswrd)
+            n7 = int(pswrd)
+            if n7 == 7:
+                n = n7 + 1
+            else:
+                n = n7
         except:
             pass
         if m == 1:
