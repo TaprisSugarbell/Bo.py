@@ -57,7 +57,7 @@ if __name__ == '__main__':
     # Aud
     dp.add_handler(ConversationHandler(
         entry_points=[CommandHandler('aud', pytbcommand),
-        CallbackQueryHandler(pattern='aud', callback=pytb_callback_handler)],
+        CallbackQueryHandler(pattern='aud', callback=aud_callback_handler)],
         states={INPUTpy: [MessageHandler(Filters.text, input_pytb)]},
         fallbacks=[]))
     
