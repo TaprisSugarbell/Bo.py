@@ -1,4 +1,5 @@
 import random
+from re import L
 import string
 from telegram import ChatAction, ParseMode
 from telegram.ext import ConversationHandler
@@ -35,9 +36,10 @@ def input_password(update, context):
             n = int(afn[1])
         except IndexError:
             n = 8
-        if pswrd > 6:
-            n = pswrd
-        else:
+        try:
+            int(pswrd) > 6
+            n = int(pswrd)
+        except:
             pass
         if m == 1:
             c = list(string.ascii_letters)
@@ -52,6 +54,8 @@ def input_password(update, context):
         elif m == 6:   
             c = list(string.printable)
             c = c[:-6]
+        elif m > 6:
+            c = list(string.hexdigits)
 
         for i in range(n):
             s += random.choice(c)
@@ -71,17 +75,15 @@ def input_password(update, context):
         chat = update.message.chat
         s = ''
         afn = password.split()
-        try:
-            m = int(afn[0])
-        except:
-            m = 5
+        m = int(afn[0])
         try:
             n = int(afn[1])
         except IndexError:
             n = 8
-        if pswrd > 6:
-            n = pswrd
-        else:
+        try:
+            int(pswrd) > 6
+            n = int(pswrd)
+        except:
             pass
         if m == 1:
             c = list(string.ascii_letters)
@@ -96,6 +98,8 @@ def input_password(update, context):
         elif m == 6:   
             c = list(string.printable)
             c = c[:-6]
+        elif m > 6:
+            c = list(string.hexdigits)
 
         for i in range(n):
             s += random.choice(c)
