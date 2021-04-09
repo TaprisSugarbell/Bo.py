@@ -59,7 +59,7 @@ if __name__ == '__main__':
     dp.add_handler(ConversationHandler(
         entry_points=[CommandHandler('aud', pytbcommand),
         CallbackQueryHandler(pattern='aud', callback=aud_callback_handler)],
-        states={INPUTpy: [MessageHandler(Filters.text, input_pytb)]},
+        states={INPUTpy: [MessageHandler(Filters.text, input_aud)]},
         fallbacks=[]))
     
     # add handler

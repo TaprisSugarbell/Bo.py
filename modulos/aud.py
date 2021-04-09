@@ -39,7 +39,7 @@ def send_aud(song, chat):
     os.unlink(song)
 
 
-def input_pytb(update, context):
+def input_aud(update, context):
     text = update.message.text
     song = generate_aud(text)
     chat = update.message.chat
