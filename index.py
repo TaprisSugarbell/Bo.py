@@ -15,7 +15,7 @@ def start(update, context):
             InlineKeyboardButton(text='Acortar URL', callback_data='url')],
             [InlineKeyboardButton(text='Generar Contraseña', callback_data='pwd'), 
             InlineKeyboardButton(text='Descargar Video', callback_data='pytb')],
-            [InlineKeyboardButton(text='Descargar Audio', callback_data='pytb')],
+            [InlineKeyboardButton(text='Descargar Audio', callback_data='aud')],
             [InlineKeyboardButton(
                 text='Repositorio', url='https://github.com/TaprisSugarbell/Bo.py/tree/master')],
         ])
