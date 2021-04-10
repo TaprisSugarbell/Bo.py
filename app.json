@@ -19,11 +19,6 @@
             "description": "Tu Token de @botfather",
             "value": "",
             "required": true
-        },
-        "ARL": {
-            "description": "Tu Token de :Deezer",
-            "value": "",
-            "required": true
         }
     },
     "addons": [{
