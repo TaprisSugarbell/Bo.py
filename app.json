@@ -14,10 +14,6 @@
         "TOKEN": {
             "description": "Tu Token de Telegram de @BotFather",
             "value": ""
-        },
-        "ARL": {
-            "description": "Tu Token de Deezer",
-            "value": ""
         }
     },
     "addons": [{
