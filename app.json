@@ -21,7 +21,7 @@
             "required": true
         },
         "ARL": {
-            "description": "Tu Token de Deezer",
+            "description": "Tu Token de :Deezer",
             "value": "",
             "required": true
         }
