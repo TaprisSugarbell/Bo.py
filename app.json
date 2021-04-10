@@ -21,12 +21,6 @@
             "required": true
         }
     },
-    "addons": [{
-        "plan": "heroku-postgresql",
-        "options": {
-            "version": "12"
-        }
-    }],
     "buildpacks": [{
         "url": "heroku/python"
     }],
