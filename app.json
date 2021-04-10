@@ -15,18 +15,19 @@
             "description": "Tu Token de Telegram de @BotFather",
             "value": ""
         },
-        "arl":{
+        "arl": {
             "description": "Tu Token de Deezer",
             "value": ""
         }
     },
-    "addons": [
+    "addons": [],
         "buildpacks": [{
             "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
         }, 
         {
             "url": "https://github.com/opendoor-labs/heroku-buildpack-p7zip"
-        }, {
+        }, 
+        {
             "url": "heroku/python"
         }
     ],
