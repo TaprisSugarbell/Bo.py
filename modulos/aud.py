@@ -1,7 +1,6 @@
 import os
 import ffmpeg
 import youtube_dl
-from moviepy.editor import *
 from telegram import ChatAction
 from telegram.ext import ConversationHandler
 
