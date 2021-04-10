@@ -17,7 +17,9 @@
         }
     },
     "addons": [],
-    "buildpacks":[{
+    "buildpacks": [{
+        "url": "https://github.com/opendoor-labs/heroku-buildpack-p7zip"
+    }, {
         "url": "heroku/python"
     }],
     "formation": {
