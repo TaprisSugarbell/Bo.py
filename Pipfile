@@ -1,0 +1,30 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pillow = "*"
+pyaes = "*"
+pyshorteners = "*"
+python-dotenv = "*"
+python-telegram-bot = "*"
+pytz = "*"
+qrcode = "*"
+requests = "*"
+selenium = "*"
+six = "*"
+tornado = "*"
+tzlocal = "*"
+urllib3 = "*"
+youtube_dl = "*"
+moviepy = "*"
+ffmpeg = "*"
+mega = "*"
+pydeezer = "*"
+wget = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"

@@ -1,6 +1,4 @@
 .env
 **/__pycache__
 /.vscode/
-Pipfile
-Pipfile.lock
 config.py
