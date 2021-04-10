@@ -33,7 +33,11 @@
         }
     }],
     "buildpacks": [{
-        "url": "https://buildpack-registry.s3.amazonaws.com/buildpacks/heroku/python.tgz"
+        "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+    }, {
+        "url": "https://github.com/opendoor-labs/heroku-buildpack-p7zip"
+    }, {
+        "url": "heroku/python"
     }],
     "formation": {
         "worker": {
