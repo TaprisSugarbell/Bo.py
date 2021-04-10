@@ -1,6 +1,4 @@
 beautifulsoup4
-feedparser
-mediafire
 mega.py
 moviepy
 nekobin
