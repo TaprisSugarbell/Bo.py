@@ -9,5 +9,5 @@ requests
 selenium
 urllib3
 wget
-youtube-dl
+
 ffmpeg

@@ -1,7 +1,6 @@
 import os
 import wget
 import requests
-import youtube_dl
 from config import Config
 from bs4 import BeautifulSoup
 from telegram import ChatAction
@@ -31,17 +30,6 @@ def generate_pytb(text):
         dwnld = soup.find(id='downloadButton')
         w = dwnld.get('href')
         filename = wget.download(w)
-
-    else:
-        video_info = youtube_dl.YoutubeDL().extract_info(url=url, download=False)
-        video_title = video_info['title']
-
-        opciones = {
-            'outtmpl': f'{video_title}.mp4',
-        }
-
-        with youtube_dl.YoutubeDL(opciones) as ydl:
-            filename = ydl.download([url])
     return filename
 
 def send_pytb(filename, chat):
