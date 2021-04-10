@@ -1,8 +1,5 @@
 import os
-import pytube
-import threading
-from queue import Queue
-from datetime import datetime
+import youtube_dl
 from telegram import ChatAction
 from telegram.ext import ConversationHandler
 
@@ -23,7 +20,15 @@ def pytb_callback_handler(update, context):
 
 def generate_pytb(text):
     url = text
-    filename = pytube.YouTube(url).streams.first().download()
+    video_info = youtube_dl.YoutubeDL().extract_info(url=url, download=False)
+    video_title = video_info['title']
+
+    opciones = {
+        'outtmpl': f'{video_title}.mp4',
+    }
+
+    with youtube_dl.YoutubeDL(opciones) as ydl:
+        filename = ydl.download([url])
     return filename
 
 def send_pytb(filename, chat):
