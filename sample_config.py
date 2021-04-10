@@ -7,6 +7,6 @@ class Config(object):
     # Obtener un token de bot de botfather
     TOKEN = os.getenv('TOKEN')
     # Obtener un token de deezer
-    ARL = os.getenv('arl')
+    ARL = os.getenv('ARL')
 
 
