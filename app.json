@@ -34,8 +34,6 @@
     }],
     "buildpacks": [{
         "url": "https://buildpack-registry.s3.amazonaws.com/buildpacks/heroku/python.tgz"
-    }, {
-        "url": "heroku/python"
     }],
     "formation": {
         "worker": {
