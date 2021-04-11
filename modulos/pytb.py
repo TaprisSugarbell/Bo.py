@@ -30,7 +30,7 @@ def pytb_callback_handler(update, context):
     return INPUTpy
 
 def generate_pytb(text):
-    url = text
+    url = text.split('/')
     
     if url[2] == 'mega.nz':
         mega = Mega()
