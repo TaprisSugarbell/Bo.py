@@ -11,6 +11,10 @@
     "repository": "https://github.com/TaprisSugarbell/Bo.py",
     "success_url": "https://telegram.dog/SayuCodez",
     "env": {
+        "WEBHOOK":{
+            "description": "Dejalo así!",
+            "value": "ANYTHING"
+        },
         "TOKEN": {
             "description": "Tu Token de Telegram de @BotFather",
             "value": ""
