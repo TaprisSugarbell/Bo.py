@@ -11,7 +11,7 @@
     "repository": "https://github.com/TaprisSugarbell/Bo.py",
     "success_url": "https://telegram.dog/SayuCodez",
     "env": {
-        "WEBHOOK":{
+        "WEBHOOK": {
             "description": "Dejalo así!",
             "value": "ANYTHING"
         },
@@ -19,13 +19,15 @@
             "description": "Tu Token de Telegram de @BotFather",
             "value": ""
         },
-        "ARL":{
+        "ARL": {
             "description": "Tu Token de Deezer",
             "value": ""
         }
     },
     "addons": [],
     "buildpacks": [{
+        "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+    }, {
         "url": "https://github.com/opendoor-labs/heroku-buildpack-p7zip"
     }, {
         "url": "heroku/python"

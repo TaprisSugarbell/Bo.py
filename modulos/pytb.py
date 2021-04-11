@@ -30,28 +30,29 @@ def pytb_callback_handler(update, context):
     return INPUTpy
 
 def generate_pytb(text):
-    url = text.split('/')
+    url = text
+    iurl = url.split('/')
     
-    if url[2] == 'mega.nz':
+    if iurl[2] == 'mega.nz':
         mega = Mega()
         m = mega.login()
         filename = m.download_url(url)
 
-    elif url[2] == 'www.mediafire.com':
+    elif iurl[2] == 'www.mediafire.com':
         r = requests.get(url)
         soup = BeautifulSoup(r.content, 'html.parser')
         dwnld = soup.find(id='downloadButton')
         w = dwnld.get('href')
         filename = wget.download(w)
 
-    elif url[2] == 'www.deezer.com':
+    elif iurl[2] == 'www.deezer.com':
         arl = Config.ARL
         deezer = Deezer(arl=arl)
         user_info = deezer.user
 
         download_dir = ''
 
-        track_id = url[4]
+        track_id = iurl[4]
         track = deezer.get_track(track_id)
 
         track_info = track["info"]
