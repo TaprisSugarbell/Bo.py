@@ -3,7 +3,6 @@ import wget
 import requests
 import youtube_dl
 from mega import Mega
-from config import Config
 from pydeezer import Deezer
 from bs4 import BeautifulSoup
 from telegram import ChatAction
@@ -12,6 +11,11 @@ from pydeezer.constants import track_formats
 
 # Variables
 INPUTpy = 0
+try:
+    from sample_config import Config
+except:
+    from config import Config
+
 
 def pytbcommand(update, context):
     update.message.reply_text('Enviame link para descargar video')
