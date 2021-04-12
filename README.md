@@ -52,7 +52,7 @@ python index.py
 
 - /pytb
 > Download Videos
-> Supported Sites ![here](https://ytdl-org.github.io/youtube-dl/supportedsites.html)
+> Supported Sites [here](https://ytdl-org.github.io/youtube-dl/supportedsites.html)
 
 - /aud
 > Download Music
