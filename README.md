@@ -50,6 +50,12 @@ python index.py
 > Enter the number of your choice and/or the length, default "8".  
 > For example /pwd 5 20, creates a 20 character alphanumeric password.
 
+- /pytb
+> Download Videos
+
+- /aud
+> Download Music
+
 #### LICENSE
 - MIT
 
