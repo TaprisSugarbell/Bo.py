@@ -51,7 +51,7 @@ python index.py
 > For example /pwd 5 20, creates a 20 character alphanumeric password.
 
 - /pytb
-> Download Videos
+> Download Videos  
 > Supported Sites [here](https://ytdl-org.github.io/youtube-dl/supportedsites.html)
 
 - /aud
