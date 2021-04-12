@@ -52,7 +52,7 @@ python index.py
 
 - /pytb
 > Download Videos  
-> Supported Sites [here](https://ytdl-org.github.io/youtube-dl/supportedsites.html), [Deezer](https://www.deezer.com/), [Mediafire](https://www.mediafire.com)/ and [Mega.nz](https://Mega.nz/)
+> Supported Sites [here](https://ytdl-org.github.io/youtube-dl/supportedsites.html), [Deezer](https://www.deezer.com/), [Mediafire](https://www.mediafire.com/) and [Mega.nz](https://Mega.nz/)
 
 - /aud
 > Download Music
