@@ -2,7 +2,6 @@ import os
 import wget
 import requests
 import youtube_dl
-from config import Config
 from mega import Mega
 from pydeezer import Deezer
 from bs4 import BeautifulSoup
