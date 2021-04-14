@@ -2,6 +2,7 @@ import os
 import wget
 import requests
 import youtube_dl
+from config import Config
 from mega import Mega
 from pydeezer import Deezer
 from bs4 import BeautifulSoup
@@ -31,7 +32,7 @@ def pytb_callback_handler(update, context):
 
 def generate_pytb(text):
     url = text
-    iurl = url.split('/')
+    iurl = text.split('/')
     
     if iurl[2] == 'mega.nz':
         mega = Mega()
@@ -47,27 +48,43 @@ def generate_pytb(text):
 
     elif iurl[2] == 'www.deezer.com':
         arl = Config.ARL
+        url = url.split('/')
         deezer = Deezer(arl=arl)
         user_info = deezer.user
 
         download_dir = ''
 
-        track_id = iurl[4]
-        track = deezer.get_track(track_id)
-
-        track_info = track["info"]
-        filename = track["download"](download_dir, quality=track_formats.MP3_320)
+        if url[3] == 'mx':
+            track_id = url[4]
+            if url[4] == 'track':
+                track_id = url[5]
+            elif url[3] == 'track':
+                track_id = url[3]
+            elif url[4] == 'album':
+                album_id = url[5]
+        elif url[3] == 'us':
+            track_id = url[4]
+        elif url[3] == 'es':
+            track_id = url[4]
+        try:
+            track = deezer.get_track(track_id)
+            track_info = track["info"]
+            filename = '{}.flac'.format(track_info['DATA']['SNG_TITLE'])
+            track["download"](download_dir, quality=track_formats.FLAC)
+        except:
+            # album = deezer.get_album_tracks(album_id)
+            pass
 
     else:
         video_info = youtube_dl.YoutubeDL().extract_info(url=url, download=False)
         video_title = video_info['title']
 
         opciones = {
-            'outtmpl': f'{video_title}.mp4',
+            'outtmpl': f'modulos/src/{video_title}.mp4',
         }
-
+        filename = f'/modulos/src/{video_title}.mp4'
         with youtube_dl.YoutubeDL(opciones) as ydl:
-            filename = ydl.download([url])
+            ydl.download([url])
     return filename
 
 def send_pytb(filename, chat):

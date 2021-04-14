@@ -1,4 +1,5 @@
 from modulos.QR import *
+from modulos.gis import *
 from modulos.aud import *
 from modulos.URL import *
 from modulos.pytb import *
@@ -13,9 +14,10 @@ def start(update, context):
         reply_markup=InlineKeyboardMarkup([
             [InlineKeyboardButton(text='Generar QR', callback_data='qr'), 
             InlineKeyboardButton(text='Acortar URL', callback_data='url')],
-            [InlineKeyboardButton(text='Generar Contraseña', callback_data='pwd'), 
-            InlineKeyboardButton(text='Descargar Video', callback_data='pytb')],
-            [InlineKeyboardButton(text='Descargar Audio', callback_data='aud')],
+            [InlineKeyboardButton(text='Descargar Video', callback_data='pytb'),
+            InlineKeyboardButton(text='Descargar Audio', callback_data='aud')],
+            [InlineKeyboardButton(text='Generar Contraseña', callback_data='pwd'),
+            InlineKeyboardButton(text='Google Image Search', callback_data='gis')],
             [InlineKeyboardButton(
                 text='Repositorio', url='https://github.com/TaprisSugarbell/Bo.py/tree/master')],
         ])
@@ -62,6 +64,14 @@ if __name__ == '__main__':
         states={INPUTpy: [MessageHandler(Filters.text, input_aud)]},
         fallbacks=[]))
     
+    # Google IMG Search
+    dp.add_handler(ConversationHandler(
+        entry_points=[CommandHandler('gis', input_gis),
+        CallbackQueryHandler(pattern='gis', callback=gis_callback_handler)],
+        states={Inputt: [MessageHandler(Filters.photo, input_gis)]},
+        fallbacks=[]
+    ))
+
     # add handler
     updater.start_polling()
     updater.idle()
