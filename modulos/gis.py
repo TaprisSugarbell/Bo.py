@@ -34,7 +34,7 @@ def input_gis(update, context):
         img = update.message.photo[2].file_id
     file = bot.getFile(img)
     print("file_id: " + str(img))
-    dimg = file.download('modulos/src/temp.png')
+    dimg = file.download('temp.png')
 
     searchUrl = 'http://www.google.com/searchbyimage/upload'
     multipart = {'encoded_image': (dimg, open(dimg, 'rb')), 'image_content': ''}
