@@ -50,6 +50,13 @@ python index.py
 > Enter the number of your choice and/or the length, default "8".  
 > For example /pwd 5 20, creates a 20 character alphanumeric password.
 
+- /pytb
+> Download Videos  
+> Supported Sites [here](https://ytdl-org.github.io/youtube-dl/supportedsites.html), [Deezer](https://www.deezer.com/), [Mediafire](https://www.mediafire.com/) and [Mega.nz](https://Mega.nz/)
+
+- /aud
+> Download Music
+
 #### LICENSE
 - MIT
 
