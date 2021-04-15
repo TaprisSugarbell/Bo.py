@@ -73,7 +73,7 @@ if __name__ == '__main__':
     ))
 
     # add handler
-    updater.start_webhook(listen="localhost",
+    updater.start_webhook(listen="127.0.0.1",
                     port=PORT,
                     url_path=Token,
                     webhook_url= HNA + Token)
