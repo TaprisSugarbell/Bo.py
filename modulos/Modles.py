@@ -6,3 +6,5 @@ except:
 
 # Variables
 Token = Config.TOKEN
+PORT = Config.PORT
+HNA = Config.HNA

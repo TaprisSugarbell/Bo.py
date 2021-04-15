@@ -22,6 +22,16 @@
         "ARL": {
             "description": "Tu Token de Deezer",
             "value": ""
+        },
+        "herokunameapp": {
+            "description": "Nombre de tu app de Heroku",
+            "value": "",
+            "required": ""
+        },
+        "Port": {
+            "description": "Número de puerto por defecto 8888",
+            "value": "8888",
+            "required": "False"
         }
     },
     "addons": [],

@@ -4,7 +4,7 @@ from modulos.aud import *
 from modulos.URL import *
 from modulos.pytb import *
 from modulos.Password import *
-from modulos.Modles import Token
+from modulos.Modles import *
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton, replymarkup
 from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler,ConversationHandler, MessageHandler, Filters
 
@@ -73,7 +73,10 @@ if __name__ == '__main__':
     ))
 
     # add handler
-    updater.start_polling()
+    updater.start_webhook(listen="0.0.0.0",
+                    port=PORT,
+                    url_path=Token,
+                    webhook_url= HNA + Token)
     updater.idle()
 
 

@@ -29,9 +29,9 @@ def input_gis(update, context):
     bot = context.bot
     chat = update.message.chat
     try:
-        img = update.message.reply_to_message.photo[2].file_id
+        img = update.message.reply_to_message.photo[1].file_id
     except:
-        img = update.message.photo[2].file_id
+        img = update.message.photo[1].file_id
     file = bot.getFile(img)
     print("file_id: " + str(img))
     dimg = file.download('temp.png')
