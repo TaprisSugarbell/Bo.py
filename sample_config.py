@@ -8,9 +8,5 @@ class Config(object):
     TOKEN = os.getenv('TOKEN')
     # Obtener un token de deezer
     ARL = os.getenv('ARL')
-    # Port
-    PORT = int(os.getenv('PORT'))
-    # Nombre de tu app de Heroku
-    HNA = str(os.getenv('herokunameapp'))
 
 
