@@ -34,49 +34,56 @@ if __name__ == '__main__':
         entry_points=[CommandHandler('qr', qrcommand),
         CallbackQueryHandler(pattern='qr', callback=qr_callback_handler)], 
         states={INPUTEXT: [MessageHandler(Filters.text, input_text)]}, 
-        fallbacks=[]))
+        fallbacks=[],
+        per_user=True
+        ))
 
     # SHORT URL
     dp.add_handler(ConversationHandler(
         entry_points=[CommandHandler('url', urlcommand),
         CallbackQueryHandler(pattern='url', callback=url_callback_handler)], 
             states={INPUTURL: [MessageHandler(Filters.text, input_url)]}, 
-            fallbacks=[]))
+            fallbacks=[],
+            per_user=True
+            ))
     
     # Random Password
     dp.add_handler(ConversationHandler(
         entry_points=[CommandHandler('pwd', input_password),
         CallbackQueryHandler(pattern='pwd', callback=password_callback_handler)],
         states={INPUTNUM: [MessageHandler(Filters.text, input_password)]},
-        fallbacks=[]))
+        fallbacks=[],
+        per_user=True
+            ))
 
     # Pytube
     dp.add_handler(ConversationHandler(
         entry_points=[CommandHandler('pytb', pytbcommand),
         CallbackQueryHandler(pattern='pytb', callback=pytb_callback_handler)],
         states={INPUTpy: [MessageHandler(Filters.text, input_pytb)]},
-        fallbacks=[]))
+        fallbacks=[],
+        per_user=True
+            ))
 
     # Aud
     dp.add_handler(ConversationHandler(
         entry_points=[CommandHandler('aud', audcommand),
         CallbackQueryHandler(pattern='aud', callback=aud_callback_handler)],
         states={INPUTpy: [MessageHandler(Filters.text, input_aud)]},
-        fallbacks=[]))
+        fallbacks=[],
+        per_user=True
+            ))
     
     # Google IMG Search
     dp.add_handler(ConversationHandler(
         entry_points=[CommandHandler('gis', input_gis),
         CallbackQueryHandler(pattern='gis', callback=gis_callback_handler)],
         states={Inputt: [MessageHandler(Filters.photo, input_gis)]},
-        fallbacks=[]
-    ))
+        fallbacks=[],
+        per_user=True
+            ))
 
-    # add handler
-    updater.start_webhook(listen="127.0.0.1",
-                    port=PORT,
-                    url_path=Token,
-                    webhook_url= HNA + Token)
+    updater.start_polling()
     updater.idle()
 
 
