@@ -57,6 +57,12 @@ python index.py
 - /aud
 > Download Music
 
+- /gis
+> 'Google Image Search'  
+> Search images on google
+
+- /downanime
+> Download anime from Tio Anime and upload to GoFiles.io
 #### LICENSE
 - MIT
 
