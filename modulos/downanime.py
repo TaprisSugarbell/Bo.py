@@ -71,21 +71,16 @@ def download(text):
             with youtube_dl.YoutubeDL(opciones) as ydl:
                 ydl.download([l])
 
-            try:
-                if da[-4:] != '.mp4':
-                   os.rename(da, f'{da}.mp4')
-                   data = f'{da}.mp4'
-            except:
-                pass
-
+            if da[-4:] != '.mp4':
+                os.rename(da, f'{da}.mp4')
+                data = f'{da}.mp4'
+        return data, da
     else:
         print(r)
         print('Ese capítulo no existe :3')
-    return data, da
 
 
-
-def send_da(da, data, chat, chat_id, message_id):
+def send_da(data, chat, chat_id, message_id):
     chat.send_action(
         action=ChatAction.TYPING,
         timeout=None
@@ -93,7 +88,6 @@ def send_da(da, data, chat, chat_id, message_id):
     app.send_video(
         chat_id,
         video=f"{data}",
-        caption=f'{da}',
         parse_mode="md",
         reply_to_message_id=message_id
     )
@@ -103,11 +97,10 @@ def send_da(da, data, chat, chat_id, message_id):
 def input_da(update, context):
     text = update.message.text
     datos = download(text)
-    # url, adminCode, data = datos
-    message_id = update.message.id
     chat = update.message.chat
     chat_id = chat.id
-    send_da(datos, chat)
+    message_id = update.message.id
+    send_da(datos, chat, chat_id, message_id)
     os.unlink(datos[2])
     return ConversationHandler.END
 
