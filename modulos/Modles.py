@@ -20,5 +20,3 @@ logging.getLogger("pyrogram.syncer").setLevel(logging.WARNING)
 app = Client("BoPyro", api_id=api_id, api_hash=api_hash, bot_token=Token)
 apps = []
 apps.append(app)
-
-

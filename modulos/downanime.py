@@ -17,53 +17,55 @@ now = datetime.now()
 dl = 2
 INPUTpy = 0
 
+
 def dacommand(update, context):
-    update.message.reply_text('Enviame link para descargar capítulo de anime')
+    update.message.reply_text("Enviame link para descargar capítulo de anime")
     return INPUTpy
 
 
 def da_callback_handler(update, context):
     query = update.callback_query
     query.answer()
-    query.edit_message_text(
-        text='Enviame link para descargar capítulo de anime'
-    )
+    query.edit_message_text(text="Enviame link para descargar capítulo de anime")
     return INPUTpy
+
 
 def download(text):
     link = text
     r = requests.get(link)
     rs = str(r)
-    if rs == '<Response [200]>':
-        soup = BeautifulSoup(r.content, 'html.parser')
+    if rs == "<Response [200]>":
+        soup = BeautifulSoup(r.content, "html.parser")
         lnk = []
-        for script in soup.find_all(attrs={"class": "btn btn-success btn-download btn-sm rounded-pill"}):
-            url = script['href']
+        for script in soup.find_all(
+            attrs={"class": "btn btn-success btn-download btn-sm rounded-pill"}
+        ):
+            url = script["href"]
             lnk.append(url)
         for l in lnk:
-            ls = l.split('/')
-            if ls[2] == 'www.mediafire.com':
+            ls = l.split("/")
+            if ls[2] == "www.mediafire.com":
                 mediafire_ = l
-            elif ls[2] == 'mega.nz':
+            elif ls[2] == "mega.nz":
                 pass
-            elif ls[3] == 'v':
+            elif ls[3] == "v":
                 zippyshare = l
 
         try:
             r = requests.get(mediafire_)
-            soup = BeautifulSoup(r.content, 'html.parser')
-            dwnld = soup.find(id='downloadButton')
-            w = dwnld.get('href')
+            soup = BeautifulSoup(r.content, "html.parser")
+            dwnld = soup.find(id="downloadButton")
+            w = dwnld.get("href")
             da = wget.download(w)
-            if da[-4:] != '.mp4':
-                os.rename(da, f'{da}.mp4')
-                data = f'{da}.mp4'
+            if da[-4:] != ".mp4":
+                os.rename(da, f"{da}.mp4")
+                data = f"{da}.mp4"
         except:
             video_info = youtube_dl.YoutubeDL().extract_info(url=l, download=False)
-            video_title = video_info['title']
+            video_title = video_info["title"]
 
             opciones = {
-                'outtmpl': re.sub(r"[^a-zA-Z0-9.]", "", video_title),
+                "outtmpl": re.sub(r"[^a-zA-Z0-9.]", "", video_title),
             }
 
             da = re.sub(r"[^a-zA-Z0-9.]", "", video_title)
@@ -71,27 +73,20 @@ def download(text):
             with youtube_dl.YoutubeDL(opciones) as ydl:
                 ydl.download([l])
 
-            if da[-4:] != '.mp4':
-                os.rename(da, f'{da}.mp4')
-                data = f'{da}.mp4'
+            if da[-4:] != ".mp4":
+                os.rename(da, f"{da}.mp4")
+                data = f"{da}.mp4"
         return data, da
     else:
         print(r)
-        print('Ese capítulo no existe :3')
+        print("Ese capítulo no existe :3")
 
 
 def send_da(data, chat, chat_id, message_id):
-    chat.send_action(
-        action=ChatAction.TYPING,
-        timeout=None
-        )
+    chat.send_action(action=ChatAction.TYPING, timeout=None)
     app.send_video(
-        chat_id,
-        video=f"{data}",
-        parse_mode="md",
-        reply_to_message_id=message_id
+        chat_id, video=f"{data}", parse_mode="md", reply_to_message_id=message_id
     )
-
 
 
 def input_da(update, context):
@@ -103,7 +98,3 @@ def input_da(update, context):
     send_da(datos, chat, chat_id, message_id)
     os.unlink(datos[2])
     return ConversationHandler.END
-
-
-
-

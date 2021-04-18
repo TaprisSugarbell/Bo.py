@@ -12,31 +12,34 @@ from selenium.webdriver.common.keys import Keys
 
 
 load_dotenv()
-#Variables
-key = os.getenv('key')
-TOKEN = os.getenv('TOKEN')
+# Variables
+key = os.getenv("key")
+TOKEN = os.getenv("TOKEN")
 
 
 def SearchSauceNAO():
     root = tkinter.Tk()
     root.withdraw()
     pimg = filedialog.askopenfilename()
-    driver = webdriver.Chrome('chromedriver.exe')
-    driver.get('https://saucenao.com/')
+    driver = webdriver.Chrome("chromedriver.exe")
+    driver.get("https://saucenao.com/")
 
     img_upload = driver.find_elements_by_xpath("//input[@type='file']")
     img_upload[0].send_keys(pimg)
 
     search = driver.find_element_by_xpath("//input[@id='searchButton']")
     search.click()
-    print('Cargando imagenes similares')
+    print("Cargando imagenes similares")
+
 
 def Shortpy(short):
     print(short)
-    alias = input('Ingresa alias - ')
-    url = urllib.parse.quote(f'{short}')
-    name  = f'{alias}'
-    r = requests.get('http://cutt.ly/api/api.php?key={}&short={}&name={}'.format(key, url, name))
+    alias = input("Ingresa alias - ")
+    url = urllib.parse.quote(f"{short}")
+    name = f"{alias}"
+    r = requests.get(
+        "http://cutt.ly/api/api.php?key={}&short={}&name={}".format(key, url, name)
+    )
     data = r.json()["url"]
     if data["status"] == 7:
         sl = data["shortLink"]
@@ -44,17 +47,18 @@ def Shortpy(short):
     else:
         print("[!] Error Acortando el Link:", data)
 
-def Password():
-    print('~~ Menú ~~')
-    print('1. Alfabeto')
-    print('2. Mayúsculas')
-    print('3. Minúsculas')
-    print('4. Números')
-    print('5. Alfanumérico')
-    print('6. Alfanumérico y Símbolos')
 
-    s = ''
-    mn = input('Ingresa parametros: ')
+def Password():
+    print("~~ Menú ~~")
+    print("1. Alfabeto")
+    print("2. Mayúsculas")
+    print("3. Minúsculas")
+    print("4. Números")
+    print("5. Alfanumérico")
+    print("6. Alfanumérico y Símbolos")
+
+    s = ""
+    mn = input("Ingresa parametros: ")
     afn = mn.split()
     m = int(afn[0])
     try:
@@ -72,85 +76,48 @@ def Password():
         c = list(string.digits)
     elif m == 5:
         c = list(string.hexdigits)
-    elif m == 6:   
+    elif m == 6:
         c = list(string.printable)
         c = c[:-6]
 
     for i in range(n):
         s += random.choice(c)
 
-    print('Tu contraseña es:', s)
+    print("Tu contraseña es:", s)
+
 
 def mp3():
-    '''
+    """
     Esto es para pedir la dirección absoluta de una carpeta
     import tkinter
     from tkinter import filedialog
     root = tkinter.Tk()
     root.withdraw()
     op = filedialog.askdirectory()
-    '''
+    """
 
     # Pedimos la URL de input al usuario
-    #input_url = input('Ingrese la URL del video que desea convertir: ')
+    # input_url = input('Ingrese la URL del video que desea convertir: ')
 
-    url = input('Ingresa URL - ')
+    url = input("Ingresa URL - ")
 
     # Obtenemos el titulo del video
     video_info = youtube_dl.YoutubeDL().extract_info(url=url, download=False)
-    video_title = video_info['title']
+    video_title = video_info["title"]
 
     # Setear las opciones para la descarga del video
     opciones = {
-        'format': 'bestaudio/best',
-        'outtmpl': f'C:/Users/sayu/Downloads/Music/{video_title}.mp3', # Seteamos la ubicación deseada
-        'postprocessors': [{
-            'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
-            'preferredquality': '192',
-        }],
+        "format": "bestaudio/best",
+        "outtmpl": f"C:/Users/sayu/Downloads/Music/{video_title}.mp3",  # Seteamos la ubicación deseada
+        "postprocessors": [
+            {
+                "key": "FFmpegExtractAudio",
+                "preferredcodec": "mp3",
+                "preferredquality": "192",
+            }
+        ],
     }
 
     # Descargar el Video
     with youtube_dl.YoutubeDL(opciones) as ydl:
         ydl.download([url])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -17,16 +17,17 @@ def password_callback_handler(update, context):
     query = update.callback_query
     query.answer()
     query.edit_message_text(
-        text='Parámetros\n1. Alfabeto\n2. Mayúsculas\n3. Minúsculas\n4. Números\n5. Alfanumérico\n6. Alfanumérico y Símbolos\nIngresa el número de tu elección y/o la longitud,\npor defecto "8"\nPor ejemplo 5 20, crea una contraseña alfanumérica de 20 caracteres.')
+        text='Parámetros\n1. Alfabeto\n2. Mayúsculas\n3. Minúsculas\n4. Números\n5. Alfanumérico\n6. Alfanumérico y Símbolos\nIngresa el número de tu elección y/o la longitud,\npor defecto "8"\nPor ejemplo 5 20, crea una contraseña alfanumérica de 20 caracteres.'
+    )
     return INPUTNUM
 
 
 def input_password(update, context):
     try:
         pfaw = context.args
-        pswrd = ' '.join(pfaw)
+        pswrd = " ".join(pfaw)
         chat = update.message.chat
-        s = ''
+        s = ""
         afn = pswrd.split()
         try:
             m = int(afn[0])
@@ -55,7 +56,7 @@ def input_password(update, context):
             c = list(string.digits)
         elif m == 5:
             c = list(string.hexdigits)
-        elif m == 6:   
+        elif m == 6:
             c = list(string.printable)
             c = c[:-6]
         elif m > 6:
@@ -64,12 +65,10 @@ def input_password(update, context):
         for i in range(n):
             s += random.choice(c)
 
-        chat.send_action(
-            action=ChatAction.TYPING,
-            timeout=None
-            )
+        chat.send_action(action=ChatAction.TYPING, timeout=None)
         chat.send_message(
-            text=f"Tu contraseña es: `{s}`", parse_mode=ParseMode.MARKDOWN,
+            text=f"Tu contraseña es: `{s}`",
+            parse_mode=ParseMode.MARKDOWN,
         )
     except:
         try:
@@ -77,7 +76,7 @@ def input_password(update, context):
         except:
             password = update.message.text
         chat = update.message.chat
-        s = ''
+        s = ""
         afn = password.split()
         m = int(afn[0])
         try:
@@ -103,7 +102,7 @@ def input_password(update, context):
             c = list(string.digits)
         elif m == 5:
             c = list(string.hexdigits)
-        elif m == 6:   
+        elif m == 6:
             c = list(string.printable)
             c = c[:-6]
         elif m > 6:
@@ -112,11 +111,9 @@ def input_password(update, context):
         for i in range(n):
             s += random.choice(c)
 
-        chat.send_action(
-            action=ChatAction.TYPING,
-            timeout=None
-            )
+        chat.send_action(action=ChatAction.TYPING, timeout=None)
         chat.send_message(
-            text=f"Tu contraseña es: `{s}`", parse_mode=ParseMode.MARKDOWN,
+            text=f"Tu contraseña es: `{s}`",
+            parse_mode=ParseMode.MARKDOWN,
         )
     return ConversationHandler.END
