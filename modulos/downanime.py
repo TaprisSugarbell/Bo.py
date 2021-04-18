@@ -4,6 +4,8 @@ import wget
 import json
 import requests
 import youtube_dl
+
+from index import app
 from bs4 import BeautifulSoup
 from datetime import datetime
 from telegram import ChatAction, ParseMode
@@ -75,37 +77,25 @@ def download(text):
                    data = f'{da}.mp4'
             except:
                 pass
-        mp_encoder = MultipartEncoder(
-            fields={
-                'filesUploaded': (data, open(data, 'rb'))
-            }
-        )
-        r = requests.post(
-            'https://srv-store5.gofile.io/uploadFile',
-            data=mp_encoder,
-            headers={'Content-Type': mp_encoder.content_type}
-        )
-        scrap = r.json()
-        url = scrap['data']['downloadPage']
-        admincode = scrap['data']['adminCode']
-        datos = (url, admincode,data)
-        ncap = re.sub(r"[^0-9]", "", link)
-        print(f'El capítulo {ncap} se ha descargado correctamente :3')
+
     else:
         print(r)
         print('Ese capítulo no existe :3')
-    return datos
+    return data, da
 
 
 
-def send_da(datos, chat):
+def send_da(da, data, chat, chat_id, message_id):
     chat.send_action(
         action=ChatAction.TYPING,
         timeout=None
         )
-    chat.send_message(
-        text=f'Aqui esta tu link:\n{datos[0]}\nY aqui tu código para editarlo:\n`{datos[1]}`',
-        parse_mode=ParseMode.MARKDOWN
+    app.send_video(
+        chat_id,
+        video=f"{data}",
+        caption=f'{da}',
+        parse_mode="md",
+        reply_to_message_id=message_id
     )
 
 
@@ -114,7 +104,9 @@ def input_da(update, context):
     text = update.message.text
     datos = download(text)
     # url, adminCode, data = datos
+    message_id = update.message.id
     chat = update.message.chat
+    chat_id = chat.id
     send_da(datos, chat)
     os.unlink(datos[2])
     return ConversationHandler.END

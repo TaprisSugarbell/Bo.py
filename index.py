@@ -6,8 +6,21 @@ from modulos.pytb import *
 from modulos.Modles import *
 from modulos.Password import *
 from modulos.downanime import *
+from pyrogram import Client, idle
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton, replymarkup
 from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler,ConversationHandler, MessageHandler, Filters
+
+
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[logging.FileHandler("log.txt"), logging.StreamHandler()],
+    level=logging.INFO,
+)
+
+LOGGER = logging.getLogger(__name__)
+
+logging.getLogger("pyrogram.syncer").setLevel(logging.WARNING)
+
 
 def start(update, context):
     update.message.reply_text(
@@ -95,6 +108,8 @@ if __name__ == '__main__':
 
     updater.start_polling()
     updater.idle()
+    app.start()
+    idle()
 
 
 

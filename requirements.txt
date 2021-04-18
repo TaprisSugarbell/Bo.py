@@ -5,6 +5,7 @@ nekobin
 Pillow
 py-deezer
 pyaes
+pyrogram
 pyshorteners
 python-dotenv
 python-telegram-bot
