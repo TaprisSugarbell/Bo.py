@@ -3,14 +3,15 @@ from modulos.gis import *
 from modulos.aud import *
 from modulos.URL import *
 from modulos.pytb import *
-from modulos.Password import *
 from modulos.Modles import *
+from modulos.Password import *
+from modulos.downanime import *
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton, replymarkup
 from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler,ConversationHandler, MessageHandler, Filters
 
 def start(update, context):
     update.message.reply_text(
-        text='Hola bienvenido a Bopy\n/qr - Genera QR a partir de un texto\n/url - Acorta un link\n/pwd - Genera contraseña\n/pytb - Descarga video de Youtube\n/aud - Descarga música de Youtube',
+        text='Hola bienvenido a Bopy\n/qr - Genera QR a partir de un texto\n/url - Acorta un link\n/pwd - Genera contraseña\n/pytb - Descarga video de Youtube\n/aud - Descarga música de Youtube\n/gis - Google Image Search\n/downanime - Descarga anime de Tio Anime',
         reply_markup=InlineKeyboardMarkup([
             [InlineKeyboardButton(text='Generar QR', callback_data='qr'), 
             InlineKeyboardButton(text='Acortar URL', callback_data='url')],
@@ -18,11 +19,11 @@ def start(update, context):
             InlineKeyboardButton(text='Descargar Audio', callback_data='aud')],
             [InlineKeyboardButton(text='Generar Contraseña', callback_data='pwd'),
             InlineKeyboardButton(text='Google Image Search', callback_data='gis')],
+            [InlineKeyboardButton(text='Descargar Anime', callback_data='downanime')],
             [InlineKeyboardButton(
                 text='Repositorio', url='https://github.com/TaprisSugarbell/Bo.py/tree/master')],
         ])
         )
-
 
 if __name__ == '__main__':
     updater = Updater(token=Token, use_context=True)
@@ -83,9 +84,17 @@ if __name__ == '__main__':
         per_user=True
             ))
 
+    # downanime
+    dp.add_handler(ConversationHandler(
+        entry_points=[CommandHandler('downanime', dacommand),
+        CallbackQueryHandler(pattern='downanime', callback=da_callback_handler)],
+        states={INPUTpy: [MessageHandler(Filters.text, input_da)]},
+        fallbacks=[]
+    ))
+
+
     updater.start_polling()
     updater.idle()
-
 
 
 

@@ -32,6 +32,7 @@ def input_gis(update, context):
         img = update.message.reply_to_message.photo[1].file_id
     except:
         img = update.message.photo[1].file_id
+    
     file = bot.getFile(img)
     print("file_id: " + str(img))
     dimg = file.download('temp.png')

@@ -1,4 +1,5 @@
 import os
+import re
 import ffmpeg
 import youtube_dl
 from telegram import ChatAction
@@ -6,6 +7,11 @@ from telegram.ext import ConversationHandler
 
 # Variables
 INPUTpy = 0
+try:
+    from sample_config import Config
+except:
+    from config import Config
+
 
 def audcommand(update, context):
     update.message.reply_text('Enviame link para descargar canción')
@@ -28,7 +34,7 @@ def generate_aud(text):
     # Setear las opciones para la descarga del video
     opciones = {
         'format': 'bestaudio/best',
-        'outtmpl': f'modulos/{video_title}.mp3',
+        'outtmpl': re.sub(r"[^a-zA-Z0-9. ]", "", f'{video_title}.mp3'),
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
@@ -57,7 +63,7 @@ def input_aud(update, context):
     url = text
     video_info = youtube_dl.YoutubeDL().extract_info(url=url, download=False)
     video_title = video_info['title']
-    outtmpl = f'modulos/{video_title}.mp3'
+    outtmpl = re.sub(r"[^a-zA-Z0-9. ]", "", f'{video_title}.mp3')
     generate_aud(text)
     chat = update.message.chat
     send_aud(outtmpl, chat)

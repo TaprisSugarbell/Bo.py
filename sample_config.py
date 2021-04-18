@@ -8,5 +8,8 @@ class Config(object):
     TOKEN = os.getenv('TOKEN')
     # Obtener un token de deezer
     ARL = os.getenv('ARL')
-
+    # Obtener en my.telegram.org
+    api_id = os.getenv('api_id')
+    # Obtener en my.telegram.org
+    api_hash = os.getenv('api_hash')
 
