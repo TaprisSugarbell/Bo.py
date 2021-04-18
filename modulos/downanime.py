@@ -2,6 +2,7 @@ import os
 import re
 import wget
 import json
+import asyncio
 import requests
 import youtube_dl
 
@@ -76,16 +77,18 @@ def download(text):
             if da[-4:] != ".mp4":
                 os.rename(da, f"{da}.mp4")
                 data = f"{da}.mp4"
-        return data, da
+        return data
     else:
         print(r)
         print("Ese capítulo no existe :3")
 
 
-def send_da(data, chat, chat_id, message_id):
+def send_da(datos, chat, chat_id, message_id):
     chat.send_action(action=ChatAction.TYPING, timeout=None)
-    app.send_video(
-        chat_id, video=f"{data}", parse_mode="md", reply_to_message_id=message_id
+    asyncio.run(
+        app.send_video(
+            chat_id, video=datos, parse_mode="md", reply_to_message_id=message_id
+        )
     )
 
 
