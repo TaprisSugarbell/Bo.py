@@ -19,19 +19,31 @@
             "description": "Tu Token de Telegram de @BotFather",
             "value": ""
         },
+        "API_ID": {
+            "description": "Tu API ID que puedes conseguir en my.telegram.org",
+            "value": ""
+        },
+        "API_HASH": {
+            "description": "Tu API HASH que puedes conseguir en my.telegram.org",
+            "value": ""
+        },
         "ARL": {
             "description": "Tu Token de Deezer",
             "value": ""
         }
     },
     "addons": [],
-    "buildpacks": [{
-        "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
-    }, {
-        "url": "https://github.com/opendoor-labs/heroku-buildpack-p7zip"
-    }, {
-        "url": "heroku/python"
-    }],
+    "buildpacks": [
+        {
+            "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+        },
+        {
+            "url": "https://github.com/opendoor-labs/heroku-buildpack-p7zip"
+        },
+        {
+            "url": "heroku/python"
+        }
+    ],
     "formation": {
         "worker": {
             "quantity": 1,
