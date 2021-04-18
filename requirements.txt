@@ -20,3 +20,4 @@ urllib3
 wget
 youtube-dl
 ffmpeg
+requests_toolbelt
