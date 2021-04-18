@@ -16,7 +16,7 @@ dl = 2
 INPUTpy = 0
 
 def dacommand(update, context):
-    update.message.reply_text('Enviame link para descargar capítulo  de anime')
+    update.message.reply_text('Enviame link para descargar capítulo de anime')
     return INPUTpy
 
 
