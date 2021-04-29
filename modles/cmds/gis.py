@@ -1,9 +1,12 @@
 import os
 import requests
-from config import Config
 from imgurpython import ImgurClient
 from telegram import ChatAction, ParseMode
 from telegram.ext import ConversationHandler
+try:
+    from sample_config import Config
+except:
+    from config import Config
 
 #Variables
 Inputt = 0
