@@ -64,7 +64,7 @@ def input_gis(update, context):
     upload = im.upload_from_path(dimg)
     link = upload["link"]
     yandex = f'https://yandex.com/images/search?url={link}&rpt=imageview'
-    snao = f'https://saucenao.com/search.php?url={link}'
+    snao = f'https://saucenao.com/search.php?db=999&numres=16&url={link}'
 
     links = url, yandex, snao
     send_url(links, chat)
