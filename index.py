@@ -1,11 +1,5 @@
-from modulos.QR import *
-from modulos.gis import *
-from modulos.aud import *
-from modulos.URL import *
-from modulos.pytb import *
-from modulos.Modles import *
-from modulos.Password import *
-from modulos.downanime import *
+from modles import varis
+from modles.cmds import QR, aud, gis, URL, downanime, Password, pytb
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton, replymarkup
 from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler,ConversationHandler, MessageHandler, Filters
 
@@ -26,69 +20,69 @@ def start(update, context):
         )
 
 if __name__ == '__main__':
-    updater = Updater(token=Token, use_context=True)
+    updater = Updater(token=varis.Token, use_context=True)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler('start', start))
 
     # Generate QR
     dp.add_handler(ConversationHandler(
-        entry_points=[CommandHandler('qr', qrcommand),
-        CallbackQueryHandler(pattern='qr', callback=qr_callback_handler)], 
-        states={INPUTEXT: [MessageHandler(Filters.text, input_text)]}, 
+        entry_points=[CommandHandler('qr', QR.qrcommand),
+        CallbackQueryHandler(pattern='qr', callback=QR.qr_callback_handler)],
+        states={QR.INPUTEXT: [MessageHandler(Filters.text, QR.input_text)]},
         fallbacks=[],
         per_user=True
         ))
 
     # SHORT URL
     dp.add_handler(ConversationHandler(
-        entry_points=[CommandHandler('url', urlcommand),
-        CallbackQueryHandler(pattern='url', callback=url_callback_handler)], 
-            states={INPUTURL: [MessageHandler(Filters.text, input_url)]}, 
+        entry_points=[CommandHandler('url', URL.urlcommand),
+        CallbackQueryHandler(pattern='url', callback=URL.url_callback_handler)],
+            states={URL.INPUTURL: [MessageHandler(Filters.text, URL.input_url)]},
             fallbacks=[],
             per_user=True
             ))
     
     # Random Password
     dp.add_handler(ConversationHandler(
-        entry_points=[CommandHandler('pwd', input_password),
-        CallbackQueryHandler(pattern='pwd', callback=password_callback_handler)],
-        states={INPUTNUM: [MessageHandler(Filters.text, input_password)]},
+        entry_points=[CommandHandler('pwd', Password.input_password()),
+        CallbackQueryHandler(pattern='pwd', callback=Password.password_callback_handler)],
+        states={Password.INPUTNUM: [MessageHandler(Filters.text, Password.input_password)]},
         fallbacks=[],
         per_user=True
             ))
 
     # Pytube
     dp.add_handler(ConversationHandler(
-        entry_points=[CommandHandler('pytb', pytbcommand),
-        CallbackQueryHandler(pattern='pytb', callback=pytb_callback_handler)],
-        states={INPUTpy: [MessageHandler(Filters.text, input_pytb)]},
+        entry_points=[CommandHandler('pytb', pytb.pytbcommand),
+        CallbackQueryHandler(pattern='pytb', callback=pytb.pytb_callback_handler)],
+        states={pytb.INPUTpy: [MessageHandler(Filters.text, pytb.input_pytb)]},
         fallbacks=[],
         per_user=True
             ))
 
     # Aud
     dp.add_handler(ConversationHandler(
-        entry_points=[CommandHandler('aud', audcommand),
-        CallbackQueryHandler(pattern='aud', callback=aud_callback_handler)],
-        states={INPUTpy: [MessageHandler(Filters.text, input_aud)]},
+        entry_points=[CommandHandler('aud', aud.audcommand),
+        CallbackQueryHandler(pattern='aud', callback=aud.aud_callback_handler)],
+        states={aud.INPUTpy: [MessageHandler(Filters.text, aud.input_aud)]},
         fallbacks=[],
         per_user=True
             ))
     
     # Google IMG Search
     dp.add_handler(ConversationHandler(
-        entry_points=[CommandHandler('gis', input_gis),
-        CallbackQueryHandler(pattern='gis', callback=gis_callback_handler)],
-        states={Inputt: [MessageHandler(Filters.photo, input_gis)]},
+        entry_points=[CommandHandler('gis', gis.input_gis),
+        CallbackQueryHandler(pattern='gis', callback=gis.gis_callback_handler)],
+        states={gis.Inputt: [MessageHandler(Filters.photo, gis.input_gis)]},
         fallbacks=[],
         per_user=True
             ))
 
     # downanime
     dp.add_handler(ConversationHandler(
-        entry_points=[CommandHandler('downanime', dacommand),
-        CallbackQueryHandler(pattern='downanime', callback=da_callback_handler)],
-        states={INPUTpy: [MessageHandler(Filters.text, input_da)]},
+        entry_points=[CommandHandler('downanime', downanime.dacommand),
+        CallbackQueryHandler(pattern='downanime', callback=downanime.da_callback_handler)],
+        states={downanime.INPUTpy: [MessageHandler(Filters.text, downanime.input_da)]},
         fallbacks=[]
     ))
 
