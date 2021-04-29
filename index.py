@@ -44,7 +44,7 @@ if __name__ == '__main__':
     
     # Random Password
     dp.add_handler(ConversationHandler(
-        entry_points=[CommandHandler('pwd', Password.input_password()),
+        entry_points=[CommandHandler('pwd', Password.input_password),
         CallbackQueryHandler(pattern='pwd', callback=Password.password_callback_handler)],
         states={Password.INPUTNUM: [MessageHandler(Filters.text, Password.input_password)]},
         fallbacks=[],
