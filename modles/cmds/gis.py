@@ -23,13 +23,13 @@ def gis_callback_handler(update, context):
     return Inputt
 
 def send_url(links, chat):
-    url, yurl = links
+    url, yandex = links
     chat.send_action(
         action=ChatAction.TYPING,
         timeout=None
     )
     chat.send_message(
-        text=f'Google: [Link]({url})\nYandex: [Link]({yurl})',
+        text=f'Google: [Link]({url})\nYandex: [Link]({yandex})',
         parse_mode=ParseMode.MARKDOWN_V2
     )
 
@@ -63,11 +63,9 @@ def input_gis(update, context):
     # isu = up + '?' + query_string
     upload = im.upload_from_path(dimg)
     link = upload["link"]
-    yandex = 'https://yandex.com/images/search?url='
-    urly = f'https://codeznuclear.herokuapp.com/{link}&rpt=imageview'
-    yurl = f'{yandex}{urly}'
+    yandex = f'https://yandex.com/images/search?url={link}&rpt=imageview'
 
-    links = url, yurl
+    links = url, yandex
     send_url(links, chat)
     os.unlink(dimg)
     return ConversationHandler.END
