@@ -29,7 +29,7 @@ def send_url(links, chat):
         timeout=None
     )
     chat.send_message(
-        text=f'Google: [Link]({url})\nYandex: [Link]({yandex})\nSauceNAO: [Link]({snao}))',
+        text=f'Google: [Link]({url})\nYandex: [Link]({yandex})\nSauceNAO: [Link]({snao})',
         parse_mode=ParseMode.MARKDOWN_V2
     )
 
