@@ -45,17 +45,18 @@ def input_gis(update, context):
     response = requests.post(searchurl, files=multipart, allow_redirects=False)
     url = response.headers['Location']
     # Yandex
-    file = dimg
-    up = "https://yandex.ru/images/search"
-    fileup = {'upfile': ('blob', open(file, 'rb'), 'image/jpeg')}
-    params = {'rpt': 'imageview', 'format': 'json',
-              'request': '{"blocks":[{"block":"b-page_type_search-by-image__link"}]}'}
-    response = requests.post(up, params=params, files=fileup)
-    print(response)
-    query_string = json.loads(response.content)['blocks'][0]['params']['url']
-    isu = up + '?' + query_string
+    # file = dimg
+    # up = "https://yandex.ru/images/search"
+    # fileup = {'upfile': ('blob', open(file, 'rb'), 'image/jpeg')}
+    # params = {'rpt': 'imageview', 'format': 'json',
+    #           'request': '{"blocks":[{"block":"b-page_type_search-by-image__link"}]}'}
+    # response = requests.post(up, params=params, files=fileup)
+    # print(response)
+    # query_string = json.loads(response.content)['blocks'][0]['params']['url']
+    # isu = up + '?' + query_string
+    yandex = 'https://yandex.com/images/search?url='
+    urly = f'https://codeznuclear.herokuapp.com/{multipart}=imageview'
 
-    links = url, isu
-    send_url(links, chat)
+    send_url(url, chat)
     os.unlink(dimg)
     return ConversationHandler.END
