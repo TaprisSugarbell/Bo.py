@@ -23,13 +23,13 @@ def gis_callback_handler(update, context):
     return Inputt
 
 def send_url(links, chat):
-    url, yandex = links
+    url, yandex, snao = links
     chat.send_action(
         action=ChatAction.TYPING,
         timeout=None
     )
     chat.send_message(
-        text=f'Google: [Link]({url})\nYandex: [Link]({yandex})',
+        text=f'Google: [Link]({url})\nYandex: [Link]({yandex}\nSauceNAO: [Link]({snao}))',
         parse_mode=ParseMode.MARKDOWN_V2
     )
 
@@ -64,8 +64,9 @@ def input_gis(update, context):
     upload = im.upload_from_path(dimg)
     link = upload["link"]
     yandex = f'https://yandex.com/images/search?url={link}&rpt=imageview'
+    snao = f'https://saucenao.com/search.php?url={link}'
 
-    links = url, yandex
+    links = url, yandex, snao
     send_url(links, chat)
     os.unlink(dimg)
     return ConversationHandler.END
