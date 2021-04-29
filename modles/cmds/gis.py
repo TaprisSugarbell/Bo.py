@@ -40,9 +40,9 @@ def input_gis(update, context):
     dimg = file.download('temp.png')
 
     # GIS
-    searchUrl = 'http://www.google.com/searchbyimage/upload'
+    searchurl = 'http://www.google.com/searchbyimage/upload'
     multipart = {'encoded_image': (dimg, open(dimg, 'rb')), 'image_content': ''}
-    response = requests.post(searchUrl, files=multipart, allow_redirects=False)
+    response = requests.post(searchurl, files=multipart, allow_redirects=False)
     url = response.headers['Location']
     # Yandex
     file = dimg
