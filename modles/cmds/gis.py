@@ -51,6 +51,7 @@ def input_gis(update, context):
     params = {'rpt': 'imageview', 'format': 'json',
               'request': '{"blocks":[{"block":"b-page_type_search-by-image__link"}]}'}
     response = requests.post(up, params=params, files=fileup)
+    print(response)
     query_string = json.loads(response.content)['blocks'][0]['params']['url']
     isu = up + '?' + query_string
 
