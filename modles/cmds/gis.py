@@ -56,7 +56,9 @@ def input_gis(update, context):
     # isu = up + '?' + query_string
     yandex = 'https://yandex.com/images/search?url='
     urly = f'https://codeznuclear.herokuapp.com/{multipart}=imageview'
+    yurl = f'{yandex}{urly}'
 
-    send_url(url, chat)
+    links = url, yurl
+    send_url(links, chat)
     os.unlink(dimg)
     return ConversationHandler.END
