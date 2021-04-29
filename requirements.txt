@@ -21,3 +21,4 @@ wget
 youtube-dl
 ffmpeg
 requests_toolbelt
+imgur-uploader

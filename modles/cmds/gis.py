@@ -1,11 +1,15 @@
 import os
-import json
 import requests
+from config import Config
+from imgurpython import ImgurClient
 from telegram import ChatAction, ParseMode
 from telegram.ext import ConversationHandler
 
 #Variables
 Inputt = 0
+imgurid = Config.imgur_id
+imgursecret = Config.imgur_secret
+im = ImgurClient(client_id=imgurid,client_secret=imgursecret)
 
 def gis_callback_handler(update, context):
     query = update.callback_query
@@ -16,13 +20,13 @@ def gis_callback_handler(update, context):
     return Inputt
 
 def send_url(links, chat):
-    url, isu = links
+    url, yurl = links
     chat.send_action(
         action=ChatAction.TYPING,
         timeout=None
     )
     chat.send_message(
-        text=f'Google: [Link]({url})\nYandex: [Link]({isu})',
+        text=f'Google: [Link]({url})\nYandex: [Link]({yurl})',
         parse_mode=ParseMode.MARKDOWN_V2
     )
 
@@ -54,8 +58,10 @@ def input_gis(update, context):
     # print(response)
     # query_string = json.loads(response.content)['blocks'][0]['params']['url']
     # isu = up + '?' + query_string
+    upload = im.upload_from_path(dimg)
+    link = upload["link"]
     yandex = 'https://yandex.com/images/search?url='
-    urly = f'https://codeznuclear.herokuapp.com/{multipart}=imageview'
+    urly = f'https://codeznuclear.herokuapp.com/{link}&rpt=imageview'
     yurl = f'{yandex}{urly}'
 
     links = url, yurl

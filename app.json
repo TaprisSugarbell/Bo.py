@@ -19,8 +19,12 @@
             "description": "Tu Token de Telegram de @BotFather",
             "value": ""
         },
-        "ARL": {
-            "description": "Tu Token de Deezer",
+        "imgur_id": {
+            "description": "Crear app en https://api.imgur.com/oauth2/addclient Client ID",
+            "value": ""
+        },
+        "imgur_secret": {
+            "description": "Crear app en https://api.imgur.com/oauth2/addclient Client secret",
             "value": ""
         }
     },
