@@ -118,10 +118,10 @@ def input_gis(update, context):
 
     urlnao = 'http://saucenao.com/search.php?output_type=0&numres=1&minsim=' + minsim + '&dbmask=' + str(
         db_bitmask) + '&api_key=' + api_key
-    files = {'file': ("image.png", imagedata.getvalue())}
+    filesnao = {'file': ("image.png", imagedata.getvalue())}
     imagedata.close()
 
-    r = requests.post(urlnao, files=files)
+    r = requests.post(urlnao, files=filesnao)
     soup = BeautifulSoup(r.content, "html.parser")
     listalink = []
     for link in soup.find_all(attrs={"class": "linkify"}):
