@@ -116,12 +116,12 @@ def input_gis(update, context):
     imagedata = io.BytesIO()
     image.save(imagedata, format='PNG')
 
-    url = 'http://saucenao.com/search.php?output_type=0&numres=1&minsim=' + minsim + '&dbmask=' + str(
+    urlnao = 'http://saucenao.com/search.php?output_type=0&numres=1&minsim=' + minsim + '&dbmask=' + str(
         db_bitmask) + '&api_key=' + api_key
     files = {'file': ("image.png", imagedata.getvalue())}
     imagedata.close()
 
-    r = requests.post(url, files=files)
+    r = requests.post(urlnao, files=files)
     soup = BeautifulSoup(r.content, "html.parser")
     listalink = []
     for link in soup.find_all(attrs={"class": "linkify"}):
