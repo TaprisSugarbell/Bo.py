@@ -113,13 +113,13 @@ def input_gis(update, context):
     image = Image.open(fname)
     image = image.convert('RGB')
     image.thumbnail(thumbSize, resample=Image.ANTIALIAS)
-    imagedata = io.BytesIO()
-    image.save(imagedata, format='PNG')
+    imageData = io.BytesIO()
+    image.save(imageData, format='PNG')
 
     urlnao = 'http://saucenao.com/search.php?output_type=0&numres=1&minsim=' + minsim + '&dbmask=' + str(
         db_bitmask) + '&api_key=' + api_key
-    filesnao = {'file': ("image.png", imagedata.getvalue())}
-    imagedata.close()
+    filesnao = {'file': (dimg, open(dimg, 'rb')), 'image_content': ''}
+    imageData.close()
 
     r = requests.post(urlnao, files=filesnao)
     soup = BeautifulSoup(r.content, "html.parser")
