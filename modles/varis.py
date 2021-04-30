@@ -7,9 +7,6 @@ except:
 
 # Variables
 Token = Config.TOKEN
-api_id = Config.api_id
-api_hash = Config.api_hash
-
 WEBHOOK = bool(os.environ.get("WEBHOOK", False))
 
 
