@@ -3,7 +3,6 @@ mega.py
 moviepy
 nekobin
 Pillow
-py-deezer
 pyaes
 pyshorteners
 python-dotenv

@@ -10,8 +10,5 @@ class Config(object):
     imgur_id = os.getenv('imgur_id')
     # Crear app en https://api.imgur.com/oauth2/addclient Client secret
     imgur_secret = os.getenv('imgur_secret')
-    # Obtener en my.telegram.org
-    api_id = os.getenv('api_id')
-    # Obtener en my.telegram.org
-    api_hash = os.getenv('api_hash')
-
+    # Obtener api en https://saucenao.com/user.php?page=search-api
+    sauce_api = os.getenv('sauce_api')

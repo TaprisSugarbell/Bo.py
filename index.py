@@ -1,6 +1,7 @@
 from modles import varis
-from modles.cmds import QR, aud, gis, URL, downanime, Password, pytb
-from telegram import InlineKeyboardMarkup, InlineKeyboardButton, replymarkup
+from modles.reverse import gis
+from modles.cmds import QR, aud, URL, downanime, Password, pytb
+from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler,ConversationHandler, MessageHandler, Filters
 
 def start(update, context):
@@ -72,7 +73,7 @@ if __name__ == '__main__':
     # Google IMG Search
     dp.add_handler(ConversationHandler(
         entry_points=[CommandHandler('gis', gis.input_gis),
-        CallbackQueryHandler(pattern='gis', callback=gis.gis_callback_handler)],
+                      CallbackQueryHandler(pattern='gis', callback=gis.gis_callback_handler)],
         states={gis.Inputt: [MessageHandler(Filters.photo, gis.input_gis)]},
         fallbacks=[],
         per_user=True
