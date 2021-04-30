@@ -109,7 +109,7 @@ def input_gis(update, context):
         2)
     print("dbmask=" + str(db_bitmask))
 
-    fname = "kurumi.jpg"
+    fname = dimg
     print(fname)
     image = Image.open(fname)
     image = image.convert('RGB')
