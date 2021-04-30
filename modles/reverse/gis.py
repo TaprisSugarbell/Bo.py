@@ -53,7 +53,7 @@ def input_gis(update, context):
     searchurl = 'http://www.google.com/searchbyimage/upload'
     multipart = {'encoded_image': (dimg, open(dimg, 'rb')), 'image_content': ''}
     response = requests.post(searchurl, files=multipart, allow_redirects=False)
-    url = response.headers['Location']
+    urlgoogle = response.headers['Location']
     # Yandex
     upload = im.upload_from_path(dimg) #Subir a Imgur
     link = upload["link"]
@@ -110,7 +110,6 @@ def input_gis(update, context):
     print("dbmask=" + str(db_bitmask))
 
     fname = dimg
-    print(fname)
     image = Image.open(fname)
     image = image.convert('RGB')
     image.thumbnail(thumbSize, resample=Image.ANTIALIAS)
@@ -129,7 +128,7 @@ def input_gis(update, context):
         listalink.append(link)
     snao = listalink[0].get("href")
 
-    links = url, yandex, snao
+    links = urlgoogle, yandex, snao
     send_url(links, chat)
     os.unlink(dimg)
     return ConversationHandler.END
