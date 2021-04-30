@@ -56,8 +56,8 @@ def input_gis(update, context):
     urlgoogle = response.headers['Location']
     # Yandex
     upload = im.upload_from_path(dimg) #Subir a Imgur
-    link = upload["link"]
-    yandex = f'https://yandex.com/images/search?url={link}&rpt=imageview'
+    linky = upload["link"]
+    yandex = f'https://yandex.com/images/search?url={linky}&rpt=imageview'
 
     # SauceNAO
     minsim = '80!'
@@ -126,6 +126,7 @@ def input_gis(update, context):
     listalink = []
     for link in soup.find_all(attrs={"class": "linkify"}):
         listalink.append(link)
+    print(listalink)
     snao = listalink[0].get("href")
 
     links = urlgoogle, yandex, snao
