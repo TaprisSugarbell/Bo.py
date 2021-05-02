@@ -28,13 +28,13 @@ def input_webshot(update, context):
     chat = update.message.chat
     urll = context.args
     url = "".join(urll)
-    options = webdriver.ChromeOptions()
+    options = webdriver.FirefoxOptions()
     options.add_argument('--window-size=1024,900')
     options.add_argument('--headless')
     options.add_argument('--disable-gpu')
     options.add_argument("--hide-scrollbars")
 
-    browser = webdriver.Chrome("webdriver/chromedriver", options=options)
+    browser = webdriver.Firefox(options=options)
 
     browser.get(url)
     time.sleep(2)
