@@ -14,3 +14,7 @@ class Config(object):
     sauce_api = os.getenv('sauce_api')
     # screenchotapi
     screenshotapi = os.getenv('screenshotapi')
+    # Usermame
+    usermame = os.getenv('usermame')
+    # api_key
+    api_key = os.getenv('api_key')
