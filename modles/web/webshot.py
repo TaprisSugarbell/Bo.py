@@ -35,7 +35,7 @@ def input_webshot(update, context):
     options.add_argument('--disable-gpu')
     options.add_argument("--hide-scrollbars")
 
-    browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=options)
+    browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=options)
 
     browser.get(url)
     time.sleep(2)
