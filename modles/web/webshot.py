@@ -27,8 +27,8 @@ def send_webshot(photo, urlp, chat):
         timeout=None
     )
     chat.send_document(
-        caption=f"*WebShot Generada*\n*URL:* {urlp}",
-        parse_mode=ParseMode.MARKDOWN_V2,
+        caption=f"<b>WebShot Generada</b>\n<b>URL:</b> {urlp}",
+        parse_mode=ParseMode.HTML,
         document=open(photo, "rb")
     )
 
