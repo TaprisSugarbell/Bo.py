@@ -34,15 +34,23 @@ def send_pic(file, varis, chat):
         lstg.append(f"#{tag}")
     strlst = " ".join(lstg)
     strlstr = strlst.replace("-", "_")
+    strl = re.sub(r"[^a-zA-Z0-9_# ]", "", strlstr)
 
     chat.send_action(
         action=ChatAction.UPLOAD_PHOTO,
         timeout=None
     )
     chat.send_photo(
-        caption=f"<b>Artist:</b> {artist}\n<b>Tags:</b> {strlstr}\n<b>Source:</b> {source}\n",
+        caption=f"<b>PostID:</b> <a href='https://danbooru.donmai.us/posts/{id}'>{id}</a>\n"
+                f"<b>ParentID:</b> <a href='https://danbooru.donmai.us/posts/{parent_id}'>{parent_id}</a>\n<b>Artist:</b> "
+                f"{artist}\n<b>Sauce:</b> {sauce}\n<b>Characters:</b> {character}\n"
+                f"<b>Tags:</b> {strl}\n<b>Source:</b> {source}",
         parse_mode=ParseMode.HTML,
         photo=open(file, "rb")
+    )
+    chat.send_action(
+        action=ChatAction.UPLOAD_DOCUMENT,
+        timeout=None
     )
     chat.send_document(
         document=open(file, "rb")
