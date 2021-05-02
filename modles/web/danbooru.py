@@ -33,13 +33,14 @@ def send_pic(file, varis, chat):
     for tag in lst:
         lstg.append(f"#{tag}")
     strlst = " ".join(lstg)
+    strlstr = strlst.replace("-", "_")
 
     chat.send_action(
         action=ChatAction.UPLOAD_PHOTO,
         timeout=None
     )
     chat.send_photo(
-        caption=f"<b>Artist:</b> {artist}\n<b>Tags:</b> {strlst}\n<b>Source:</b> {source}\n",
+        caption=f"<b>Artist:</b> {artist}\n<b>Tags:</b> {strlstr}\n<b>Source:</b> {source}\n",
         parse_mode=ParseMode.HTML,
         photo=open(file, "rb")
     )
@@ -53,9 +54,10 @@ def input_danbooru(update, context):
     idpost = context.args
     idpostj = "".join(idpost)
     idposts = idpostj.split("/")
-    filter = re.sub(r"[^0-9]", "", idposts[4])
     client = Danbooru("danbooru", username=usermame, api_key=api_key)
     try:
+        filter1 = idposts[4].split("?")
+        filter = re.sub(r"[^0-9]", "", filter1[0])
         post = client.post_show(filter)
     except:
         post = client.post_show(idpostj)

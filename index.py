@@ -65,7 +65,7 @@ if __name__ == '__main__':
     # Aud
     dp.add_handler(ConversationHandler(
         entry_points=[CommandHandler('aud', aud.audcommand),
-        CallbackQueryHandler(pattern='aud', callback=aud.aud_callback_handler)],
+                      CallbackQueryHandler(pattern='aud', callback=aud.aud_callback_handler)],
         states={aud.INPUTpy: [MessageHandler(Filters.text, aud.input_aud)]},
         fallbacks=[],
         per_user=True
@@ -83,7 +83,7 @@ if __name__ == '__main__':
     # downanime
     dp.add_handler(ConversationHandler(
         entry_points=[CommandHandler('downanime', downanime.dacommand),
-        CallbackQueryHandler(pattern='downanime', callback=downanime.da_callback_handler)],
+                      CallbackQueryHandler(pattern='downanime', callback=downanime.da_callback_handler)],
         states={downanime.INPUTpy: [MessageHandler(Filters.text, downanime.input_da)]},
         fallbacks=[]
     ))
@@ -91,7 +91,7 @@ if __name__ == '__main__':
     # Webshot
     dp.add_handler(ConversationHandler(
         entry_points=[CommandHandler("webshot", webshot.input_webshot),
-            CallbackQueryHandler(pattern="webshot", callback=webshot.webshot_callback)],
+                      CallbackQueryHandler(pattern="webshot", callback=webshot.webshot_callback)],
         states={webshot.input_webshot: [MessageHandler(Filters.text, webshot.input_webshot)]},
         fallbacks=[]
     ))
