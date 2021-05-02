@@ -75,7 +75,7 @@ if __name__ == '__main__':
     dp.add_handler(ConversationHandler(
         entry_points=[CommandHandler('gis', gis.input_gis),
                       CallbackQueryHandler(pattern='gis', callback=gis.gis_callback_handler)],
-        states={gis.Inputt: [MessageHandler(Filters.photo, gis.gis_command_callback)]},
+        states={gis.Inputt: [MessageHandler(Filters.photo, gis.input_gis)]},
         fallbacks=[],
         per_user=True
             ))
