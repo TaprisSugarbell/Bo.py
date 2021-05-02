@@ -36,6 +36,13 @@ def send_pic(file, filejpg, varis, chat):
     strlst = " ".join(lstg)
     strlstr = strlst.replace("-", "_")
     strl = re.sub(r"[^a-zA-Z0-9_# ]", "", strlstr)
+    # Tag a el character
+    lstc = character.split(" ")
+    lstcl = []
+    for charact in lstc:
+        lstcl.append(f"#{charact}")
+    strlstc = " ".join(lstcl)
+    strlc = re.sub(r"[^a-zA-Z0-9_# ]", "", strlstc)
 
     chat.send_action(
         action=ChatAction.UPLOAD_PHOTO,
@@ -44,7 +51,7 @@ def send_pic(file, filejpg, varis, chat):
     chat.send_photo(
         caption=f"<b>PostID:</b> <a href='https://danbooru.donmai.us/posts/{id}'>{id}</a>\n"
                 f"<b>ParentID:</b> <a href='https://danbooru.donmai.us/posts/{parent_id}'>{parent_id}</a>\n<b>Artist:</b> "
-                f"{artist}\n<b>Sauce:</b> {sauce}\n<b>Characters:</b> {character}\n"
+                f"{artist}\n<b>Sauce:</b> {sauce}\n<b>Characters:</b> {strlc}\n"
                 f"<b>Tags:</b> {strl}\n<b>Source:</b> {source}",
         parse_mode=ParseMode.HTML,
         photo=open(filejpg, "rb")
