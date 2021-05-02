@@ -73,6 +73,7 @@ def input_danbooru(update, context):
     archname = f"{id} {artist} {character}.{ext}"
     file = wget.download(file_url, archname)
     send_pic(file, varis, chat)
+    os.unlink(file)
     return ConversationHandler.END
 
 
