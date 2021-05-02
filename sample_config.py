@@ -12,3 +12,5 @@ class Config(object):
     imgur_secret = os.getenv('imgur_secret')
     # Obtener api en https://saucenao.com/user.php?page=search-api
     sauce_api = os.getenv('sauce_api')
+    # screenchotapi
+    screenshotapi = os.getenv('screenshotapi')
