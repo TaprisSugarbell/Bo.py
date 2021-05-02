@@ -2,9 +2,10 @@ import os
 import re
 import wget
 import requests
+from PIL import Image
 from pybooru import Danbooru
-from telegram import ChatAction, ParseMode
 from telegram.ext import ConversationHandler
+from telegram import ChatAction, ParseMode, PhotoSize
 try:
     from sample_config import Config
 except:
@@ -24,7 +25,7 @@ def danbooru_callback(update, context):
     return Input
 
 
-def send_pic(file, varis, chat):
+def send_pic(file, filejpg, varis, chat):
     id, source, tags_string, tags_string_general, parent_id, \
         character, artist, sauce, file_url, ext = varis
     # Esto agrega los tags
@@ -46,14 +47,15 @@ def send_pic(file, varis, chat):
                 f"{artist}\n<b>Sauce:</b> {sauce}\n<b>Characters:</b> {character}\n"
                 f"<b>Tags:</b> {strl}\n<b>Source:</b> {source}",
         parse_mode=ParseMode.HTML,
-        photo=open(file, "rb")
+        photo=open(filejpg, "rb")
     )
     chat.send_action(
         action=ChatAction.UPLOAD_DOCUMENT,
         timeout=None
     )
     chat.send_document(
-        document=open(file, "rb")
+        document=open(file, "rb"),
+        timeout=None
     )
 
 
@@ -82,8 +84,16 @@ def input_danbooru(update, context):
 
     archname = f"{id} {artist} {character}.{ext}"
     file = wget.download(file_url, archname)
-    send_pic(file, varis, chat)
+    # Reduciendo Tamaño
+    img = Image.open(file)
+    size = img.size
+    fileresize = img.resize(size)
+    fileresize.save('file.jpg', 'jpeg')
+    filejpg = "file.jpg"
+
+    send_pic(file, filejpg, varis, chat)
     os.unlink(file)
+    os.unlink(filejpg)
     return ConversationHandler.END
 
 
