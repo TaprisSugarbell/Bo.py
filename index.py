@@ -1,8 +1,9 @@
 from modles import varis
 from modles.reverse import gis
+from modles.web import webshot
 from modles.cmds import QR, aud, URL, downanime, Password, pytb
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
-from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler,ConversationHandler, MessageHandler, Filters
+from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler, ConversationHandler, MessageHandler, Filters
 
 def start(update, context):
     update.message.reply_text(
@@ -74,7 +75,7 @@ if __name__ == '__main__':
     dp.add_handler(ConversationHandler(
         entry_points=[CommandHandler('gis', gis.input_gis),
                       CallbackQueryHandler(pattern='gis', callback=gis.gis_callback_handler)],
-        states={gis.Inputt: [MessageHandler(Filters.photo, gis.input_gis)]},
+        states={gis.Inputt: [MessageHandler(Filters.photo, gis.gis_command_callback)]},
         fallbacks=[],
         per_user=True
             ))
@@ -87,6 +88,13 @@ if __name__ == '__main__':
         fallbacks=[]
     ))
 
+    # Webshot
+    dp.add_handler(ConversationHandler(
+        entry_points=[CommandHandler("webshot", webshot.input_webshot),
+            CallbackQueryHandler(pattern="webshot", callback=webshot.webshot_callback)],
+        states={webshot.input_webshot: [MessageHandler(Filters.text, webshot.input_webshot)]},
+        fallbacks=[]
+    ))
 
     updater.start_polling()
     updater.idle()
