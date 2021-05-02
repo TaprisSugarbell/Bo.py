@@ -1,10 +1,16 @@
 import os
+import wget
 import time
-from selenium import webdriver
-from telegram import ChatAction
+import requests
+import urllib.parse
+from telegram import ChatAction, ParseMode
 from telegram.ext import ConversationHandler
+try:
+    from sample_config import Config
+except:
+    from config import Config
 
-#Variables
+# Variables
 input_webshot = 0
 
 def webshot_callback(update, context):
@@ -15,34 +21,29 @@ def webshot_callback(update, context):
     )
     return input_webshot
 
-def send_webshot(photo, chat):
+def send_webshot(photo, urlp, chat):
     chat.send_action(
         action=ChatAction.UPLOAD_PHOTO,
         timeout=None
     )
     chat.send_document(
+        caption=f"*WebShot Generada*\n*URL:* {urlp}",
+        parse_mode=ParseMode.MARKDOWN_V2,
         document=open(photo, "rb")
     )
 
 def input_webshot(update, context):
     chat = update.message.chat
     urll = context.args
-    url = "".join(urll)
-    options = webdriver.ChromeOptions()
-    options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    options.add_argument('--window-size=1024,900')
-    options.add_argument('--headless')
-    options.add_argument('--disable-gpu')
-    options.add_argument("--hide-scrollbars")
+    urlj = "".join(urll)
 
-    browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=options)
-
-    browser.get(url)
-    time.sleep(2)
-    photo = browser.save_screenshot('temp.png')
-    browser.close()
-
-    send_webshot(photo, chat)
+    screenshotapi = Config.screenshotapi
+    url = urllib.parse.quote_plus(urlj)
+    lnk = f"https://shot.screenshotapi.net/screenshot?token={screenshotapi}&url={url}"
+    r = requests.get(lnk).json()
+    photo = wget.download(r["screenshot"])
+    urlp = r["url"]
+    send_webshot(photo, urlp, chat)
     os.unlink(photo)
     return ConversationHandler.END
 
