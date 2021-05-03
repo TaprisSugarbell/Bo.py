@@ -1,6 +1,6 @@
 from modles import varis
 from modles.reverse import gis
-from modles.web import webshot, danbooru
+from modles.web import webshot, danbooru, danboo
 from modles.cmds import QR, aud, URL, downanime, Password, pytb
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler, ConversationHandler, MessageHandler, Filters
@@ -96,7 +96,7 @@ if __name__ == '__main__':
         fallbacks=[]
     ))
 
-    # Danbooru
+    # Danbooru Channel
     dp.add_handler(ConversationHandler(
         entry_points=[CommandHandler("d", danbooru.input_danbooru),
                       CallbackQueryHandler(pattern="d", callback=danbooru.danbooru_callback)],
@@ -104,6 +104,13 @@ if __name__ == '__main__':
         fallbacks=[]
     ))
 
+    # Danbooru
+    dp.add_handler(ConversationHandler(
+        entry_points=[CommandHandler("danbooru", danboo.input_danbooru),
+                      CallbackQueryHandler(pattern="danbooru", callback=danboo.danbooru_callback)],
+        states={danboo.Input: [MessageHandler(Filters.text, danboo.input_danbooru)]},
+        fallbacks=[]
+    ))
 
     updater.start_polling()
     updater.idle()

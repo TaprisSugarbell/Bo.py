@@ -15,9 +15,7 @@ except:
 # Variables
 Input = 0
 api_key = Config.api_key
-channel = Config.channel
 usermame = Config.usermame
-IDuser = int(Config.chatuser)
 # logging.basicConfig(filename="app.log", level="DEBUG")
 
 def danbooru_callback(update, context):
@@ -44,7 +42,6 @@ def inline_danboo(url, datoskey):
     return danboo_inline
 
 def send_pic(file, filejpg, danboo_inline, varis, chat, context):
-    chatuser = chat["id"]
     id, source, tags_string, tags_string_general, parent_id, \
         character, artist, sauce, file_url, ext = varis
     # Esto agrega los tags
@@ -86,58 +83,30 @@ def send_pic(file, filejpg, danboo_inline, varis, chat, context):
     except:
         pass
     # logging.info("Se creo el diccionario %s y se esta enviando la imagen", caption)
-    if chatuser == IDuser:
-        chat.send_action(
-            action=ChatAction.UPLOAD_PHOTO,
-            timeout=20
-        )
-        context.bot.send_photo(
-            caption=f"<b>PostID: </b><code>{id}</code>\n" +
-                    f"<b>ParentID: </b><code>{parent_id}</code>\n" +
-                    caption["Artist"] +
-                    caption["Sauce"] +
-                    caption["Characters"] +
-                    f"<b>Tags:</b> <i>{strl}</i>",
-            parse_mode=ParseMode.HTML,
-            photo=open(filejpg, "rb"),
-            chat_id=channel,
-            reply_markup=danboo_inline
-        )
-        # logging.info("Se esta subiendo la foto como documento")
-        chat.send_action(
-            action=ChatAction.UPLOAD_DOCUMENT,
-            timeout=20
-        )
-        context.bot.send_document(
-            document=open(file, "rb"),
-            chat_id=channel,
-            timeout=20
-        )
-    elif chatuser != IDuser:
-        chat.send_action(
-            action=ChatAction.UPLOAD_PHOTO,
-            timeout=20
-        )
-        chat.send_photo(
-            caption=f"<b>PostID: </b><code>{id}</code>\n" +
-                    f"<b>ParentID: </b><code>{parent_id}</code>\n" +
-                    caption["Artist"] +
-                    caption["Sauce"] +
-                    caption["Characters"] +
-                    f"<b>Tags:</b> <i>{strl}</i>",
-            parse_mode=ParseMode.HTML,
-            photo=open(filejpg, "rb"),
-            reply_markup=danboo_inline
-        )
-        # logging.info("Se esta subiendo la foto como documento")
-        chat.send_action(
-            action=ChatAction.UPLOAD_DOCUMENT,
-            timeout=20
-        )
-        chat.send_document(
-            document=open(file, "rb"),
-            timeout=20
-        )
+    chat.send_action(
+        action=ChatAction.UPLOAD_PHOTO,
+        timeout=20
+    )
+    chat.send_photo(
+        caption=f"<b>PostID: </b><code>{id}</code>\n" +
+                f"<b>ParentID: </b><code>{parent_id}</code>\n" +
+                caption["Artist"] +
+                caption["Sauce"] +
+                caption["Characters"] +
+                f"<b>Tags:</b> <i>{strl}</i>",
+        parse_mode=ParseMode.HTML,
+        photo=open(filejpg, "rb"),
+        reply_markup=danboo_inline
+    )
+    # logging.info("Se esta subiendo la foto como documento")
+    chat.send_action(
+        action=ChatAction.UPLOAD_DOCUMENT,
+        timeout=20
+    )
+    chat.send_document(
+        document=open(file, "rb"),
+        timeout=20
+    )
 
 
 def input_danbooru(update, context):
@@ -182,5 +151,3 @@ def input_danbooru(update, context):
     os.unlink(file)
     os.unlink(filejpg)
     return ConversationHandler.END
-
-
