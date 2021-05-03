@@ -18,3 +18,9 @@ class Config(object):
     usermame = os.getenv('usermame')
     # api_key
     api_key = os.getenv('api_key')
+    # User ID
+    chatuser = os.getenv('chatuser')
+    # Channel ID
+    channel = os.getenv('channel')
+
+

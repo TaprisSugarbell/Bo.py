@@ -16,8 +16,8 @@ def start(update, context):
             [InlineKeyboardButton(text='Generar Contraseña', callback_data='pwd'),
             InlineKeyboardButton(text='Google Image Search', callback_data='gis')],
             [InlineKeyboardButton(text='Descargar Anime', callback_data='downanime')],
-            [InlineKeyboardButton(
-                text='Repositorio', url='https://github.com/TaprisSugarbell/Bo.py/tree/master')],
+            # [InlineKeyboardButton(
+            #     text='Repositorio', url='https://github.com/TaprisSugarbell/Bo.py/tree/master')]
         ])
         )
 

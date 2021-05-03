@@ -15,7 +15,9 @@ except:
 # Variables
 Input = 0
 api_key = Config.api_key
+channel = Config.channel
 usermame = Config.usermame
+IDuser = int(Config.chatuser)
 # logging.basicConfig(filename="app.log", level="DEBUG")
 
 def danbooru_callback(update, context):
@@ -28,23 +30,21 @@ def danbooru_callback(update, context):
 
 def inline_danboo(url, datoskey):
     urls = url.split("/")
-    pixiv_id, id = datoskey
+    pixiv_id, id, file_url = datoskey
     danbo = InlineKeyboardButton(text="Danbooru", url=f"https://danbooru.donmai.us/posts/{id}")
-    try:
-        urls[2] == "twitter.com"
+    dirdanbo = InlineKeyboardButton(text="Direct Link", url=file_url)
+    if urls[2] == "twitter.com":
         source = InlineKeyboardButton(text="Twitter", url=url)
-        danboo_inline = InlineKeyboardMarkup([[danbo, source]])
-    except:
-        pass
-    try:
-        urls[2] == "i.pximg.net"
+        danboo_inline = InlineKeyboardMarkup([[danbo, dirdanbo], [source]])
+    elif urls[2] == "i.pximg.net":
         source = InlineKeyboardButton(text="Pixiv", url=f"http://pixiv.net/i/{pixiv_id}")
-        danboo_inline = InlineKeyboardMarkup([[danbo, source]])
-    except IndexError:
-        danboo_inline = InlineKeyboardMarkup([[danbo]])
+        danboo_inline = InlineKeyboardMarkup([[danbo, dirdanbo], [source]])
+    else:
+        danboo_inline = InlineKeyboardMarkup([[danbo, dirdanbo]])
     return danboo_inline
 
-def send_pic(file, filejpg, danboo_inline, varis, chat):
+def send_pic(file, filejpg, danboo_inline, varis, chat, context):
+    chatuser = chat["id"]
     id, source, tags_string, tags_string_general, parent_id, \
         character, artist, sauce, file_url, ext = varis
     # Esto agrega los tags
@@ -55,60 +55,94 @@ def send_pic(file, filejpg, danboo_inline, varis, chat):
     strlst = " ".join(lstg)
     strlstr = strlst.replace("-", "_")
     strl = re.sub(r"[^a-zA-Z0-9_# ]", "", strlstr)
-    # Tag a el character
+    # Tag a el ---------------------------------- character
     lstc = character.split(" ")
     lstcl = []
     for charact in lstc:
         lstcl.append(f"#{charact}")
     strlstc = " ".join(lstcl)
     strlc = re.sub(r"[^a-zA-Z0-9_# ]", "", strlstc)
-    # Limpiando Artista
+    # Limpiando --------------------------------- Artista
     artistl = re.sub(r"[^a-zA-Z0-9_# ]", "", artist)
-    # Limpiando Sauce
-    saucel = sauce.replace("-", "_")
-    # Texto Foto
+    # Limpiando --------------------------------- Sauce
+    lsts = sauce.split(" ")
+    lstsa = []
+    for sau in lsts:
+        lstsa.append(f"#{sau}")
+    strlsau = " ".join(lstsa)
+    strlsauc = re.sub(r"[^a-zA-Z0-9_# ]", "", strlsau)
+    # Texto Caption
     caption = {}
     if isinstance(artistl, str):
         caption["Artist"] = f"<b>Artist: #{artistl}</b>\n"
     if sauce == "original":
-        caption["Sauce"] = f"<b>Sauce: #Original</b>\n"
-        caption["Characters"] = f"<b>Characters: #Original</b>\n"
+        caption["Sauce"] = f"<b>Sauce: #original</b>\n"
+        caption["Characters"] = f"<b>Characters: #original</b>\n"
     elif sauce != "original":
-        caption["Sauce"] = f"<b>Sauce: #{saucel}</b>\n"
+        caption["Sauce"] = f"<b>Sauce: {strlsauc}</b>\n"
     try:
         isinstance(character[2], str)
         caption["Characters"] = f"<b>Characters: {strlc}</b>\n"
     except:
         pass
     # logging.info("Se creo el diccionario %s y se esta enviando la imagen", caption)
-    chat.send_action(
-        action=ChatAction.UPLOAD_PHOTO,
-        timeout=20
-    )
-    chat.send_photo(
-        caption=f"<b>PostID: </b><code>{id}</code>\n" +
-                f"<b>ParentID: </b><code>{parent_id}</code>\n" +
-                caption["Artist"] +
-                caption["Sauce"] +
-                caption["Characters"] +
-                f"<b>Tags:</b> <i>{strl}</i>",
-        parse_mode=ParseMode.HTML,
-        photo=open(filejpg, "rb"),
-        reply_markup=danboo_inline
-    )
-    # logging.info("Se esta subiendo la foto como documento")
-    chat.send_action(
-        action=ChatAction.UPLOAD_DOCUMENT,
-        timeout=20
-    )
-    chat.send_document(
-        document=open(file, "rb"),
-        timeout=20
-    )
+    if chatuser == IDuser:
+        chat.send_action(
+            action=ChatAction.UPLOAD_PHOTO,
+            timeout=20
+        )
+        context.bot.send_photo(
+            caption=f"<b>PostID: </b><code>{id}</code>\n" +
+                    f"<b>ParentID: </b><code>{parent_id}</code>\n" +
+                    caption["Artist"] +
+                    caption["Sauce"] +
+                    caption["Characters"] +
+                    f"<b>Tags:</b> <i>{strl}</i>",
+            parse_mode=ParseMode.HTML,
+            photo=open(filejpg, "rb"),
+            chat_id=channel,
+            reply_markup=danboo_inline
+        )
+        # logging.info("Se esta subiendo la foto como documento")
+        chat.send_action(
+            action=ChatAction.UPLOAD_DOCUMENT,
+            timeout=20
+        )
+        context.bot.send_document(
+            document=open(file, "rb"),
+            chat_id=channel,
+            timeout=20
+        )
+    elif chatuser != IDuser:
+        chat.send_action(
+            action=ChatAction.UPLOAD_PHOTO,
+            timeout=20
+        )
+        chat.send_photo(
+            caption=f"<b>PostID: </b><code>{id}</code>\n" +
+                    f"<b>ParentID: </b><code>{parent_id}</code>\n" +
+                    caption["Artist"] +
+                    caption["Sauce"] +
+                    caption["Characters"] +
+                    f"<b>Tags:</b> <i>{strl}</i>",
+            parse_mode=ParseMode.HTML,
+            photo=open(filejpg, "rb"),
+            reply_markup=danboo_inline
+        )
+        # logging.info("Se esta subiendo la foto como documento")
+        chat.send_action(
+            action=ChatAction.UPLOAD_DOCUMENT,
+            timeout=20
+        )
+        chat.send_document(
+            document=open(file, "rb"),
+            timeout=20
+        )
 
 
 def input_danbooru(update, context):
     chat = update.message.chat
+
     idpost = context.args
     idpostj = "".join(idpost)
     idposts = idpostj.split("/")
@@ -142,9 +176,10 @@ def input_danbooru(update, context):
     fileconvert.save('file.jpg', 'jpeg')
     filejpg = "file.jpg"
 
-    datoskey = post["pixiv_id"], post["id"]
+    # Datos Botones
+    datoskey = post["pixiv_id"], post["id"], post["file_url"]
     danboo_inline = inline_danboo(source, datoskey)
-    send_pic(file, filejpg, danboo_inline, varis, chat)
+    send_pic(file, filejpg, danboo_inline, varis, chat, context)
     os.unlink(file)
     os.unlink(filejpg)
     return ConversationHandler.END
