@@ -69,7 +69,8 @@ def send_pic(file, filejpg, danboo_inline, varis, chat, context):
     for sau in lsts:
         lstsa.append(f"#{sau}")
     strlsau = " ".join(lstsa)
-    strlsauc = re.sub(r"[^a-zA-Z0-9_# ]", "", strlsau)
+    strlsac = strlsau.replace("/", "_")
+    strlsauc = re.sub(r"[^a-zA-Z0-9_# ]", "", strlsac)
     # Texto Caption
     caption = {}
     if isinstance(artistl, str):
