@@ -33,14 +33,16 @@ def inline_danboo(url, datoskey):
     pixiv_id, id, file_url = datoskey
     danbo = InlineKeyboardButton(text="Danbooru", url=f"https://danbooru.donmai.us/posts/{id}")
     dirdanbo = InlineKeyboardButton(text="Direct Link", url=file_url)
-    if urls[2] == "twitter.com":
+    try:
+        urls[2] == "twitter.com"
         source = InlineKeyboardButton(text="Twitter", url=url)
         danboo_inline = InlineKeyboardMarkup([[danbo, dirdanbo], [source]])
-    elif urls[2] == "i.pximg.net":
-        source = InlineKeyboardButton(text="Pixiv", url=f"http://pixiv.net/i/{pixiv_id}")
-        danboo_inline = InlineKeyboardMarkup([[danbo, dirdanbo], [source]])
-    else:
-        danboo_inline = InlineKeyboardMarkup([[danbo, dirdanbo]])
+    except:
+        if pixiv_id != None:
+            source = InlineKeyboardButton(text="Pixiv", url=f"http://pixiv.net/i/{pixiv_id}")
+            danboo_inline = InlineKeyboardMarkup([[danbo, dirdanbo], [source]])
+        else:
+            danboo_inline = InlineKeyboardMarkup([[danbo, dirdanbo]])
     return danboo_inline
 
 def send_pic(file, filejpg, danboo_inline, varis, chat, context):
