@@ -64,6 +64,8 @@ def send_pic(file, filejpg, danboo_inline, varis, chat):
     strlc = re.sub(r"[^a-zA-Z0-9_# ]", "", strlstc)
     # Limpiando Artista
     artistl = re.sub(r"[^a-zA-Z0-9_# ]", "", artist)
+    # Limpiando Sauce
+    saucel = re.sub(r"[^a-zA-Z0-9_# ]", "", sauce)
     # Texto Foto
     caption = {}
     if isinstance(artistl, str):
@@ -72,7 +74,7 @@ def send_pic(file, filejpg, danboo_inline, varis, chat):
         caption["Sauce"] = f"<b>Sauce: #Original</b>\n"
         caption["Characters"] = f"<b>Characters: #Original</b>\n"
     elif sauce != "original":
-        caption["Sauce"] = f"<b>Sauce: #{sauce}</b>\n"
+        caption["Sauce"] = f"<b>Sauce: #{saucel}</b>\n"
     try:
         isinstance(character[2], str)
         caption["Characters"] = f"<b>Characters: {strlc}</b>\n"
