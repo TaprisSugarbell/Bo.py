@@ -5,7 +5,7 @@ import requests
 from PIL import Image
 from pybooru import Danbooru
 from telegram.ext import ConversationHandler
-from telegram import ChatAction, ParseMode, PhotoSize
+from telegram import ChatAction, ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 try:
     from sample_config import Config
 except:
@@ -24,6 +24,11 @@ def danbooru_callback(update, context):
     )
     return Input
 
+# def inline_danboo(url):
+#     source1 = InlineKeyboardButton(text="Source", url=url)
+#     source2 = InlineKeyboardButton(text="Source", url=url)
+#     danboo_inline = InlineKeyboardMarkup([source1, source2])
+#     return danboo_inline
 
 def send_pic(file, filejpg, varis, chat):
     id, source, tags_string, tags_string_general, parent_id, \
@@ -49,12 +54,13 @@ def send_pic(file, filejpg, varis, chat):
         timeout=None
     )
     chat.send_photo(
-        caption=f"<b>PostID:</b> <a href='https://danbooru.donmai.us/posts/{id}'>{id}</a>\n"
-                f"<b>ParentID:</b> <a href='https://danbooru.donmai.us/posts/{parent_id}'>{parent_id}</a>\n<b>Artist:</b> "
-                f"{artist}\n<b>Sauce:</b> {sauce}\n<b>Characters:</b> {strlc}\n"
-                f"<b>Tags:</b> {strl}\n<b>Source:</b> {source}",
+        caption=f"<b>PostID:</b><i><a href='https://danbooru.donmai.us/posts/{id}'> {id}</a></i>\n"
+                f"<b>ParentID:</b><i><a href='https://danbooru.donmai.us/posts/{parent_id}'> {parent_id}</a></i>\n"
+                f"<b>Artist: #{artist}</b>\n<b>Sauce: #{sauce}</b>\n<b>Characters: {strlc}</b>\n"
+                f"<b>Tags:</b> <i>{strl}</i>\n<b>Source:</b> {source}",
         parse_mode=ParseMode.HTML,
         photo=open(filejpg, "rb")
+        # reply_markup=danboo_inline
     )
     chat.send_action(
         action=ChatAction.UPLOAD_DOCUMENT,
@@ -98,6 +104,7 @@ def input_danbooru(update, context):
     fileresize.save('file.jpg', 'jpeg')
     filejpg = "file.jpg"
 
+    # danboo_inline = inline_danboo(source)
     send_pic(file, filejpg, varis, chat)
     os.unlink(file)
     os.unlink(filejpg)
