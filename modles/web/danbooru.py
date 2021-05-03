@@ -30,13 +30,18 @@ def inline_danboo(url, datoskey):
     urls = url.split("/")
     pixiv_id, id = datoskey
     danbo = InlineKeyboardButton(text="Danbooru", url=f"https://danbooru.donmai.us/posts/{id}")
-    if urls[2] == "twitter.com":
+    try:
+        urls[2] == "twitter.com"
         source = InlineKeyboardButton(text="Twitter", url=url)
-    elif urls[2] == "i.pximg.net":
+        danboo_inline = InlineKeyboardMarkup([[danbo, source]])
+    except:
+        pass
+    try:
+        urls[2] == "i.pximg.net"
         source = InlineKeyboardButton(text="Pixiv", url=f"http://pixiv.net/i/{pixiv_id}")
-    else:
-        source = InlineKeyboardButton(text="Source", url=url)
-    danboo_inline = InlineKeyboardMarkup([[danbo, source]])
+        danboo_inline = InlineKeyboardMarkup([[danbo, source]])
+    except IndexError:
+        danboo_inline = InlineKeyboardMarkup([[danbo]])
     return danboo_inline
 
 def send_pic(file, filejpg, danboo_inline, varis, chat):
@@ -131,7 +136,8 @@ def input_danbooru(update, context):
     img = Image.open(file)
     size = img.size
     fileresize = img.resize(size)
-    fileresize.save('file.jpg', 'jpeg')
+    fileconvert = fileresize.convert("RGB")
+    fileconvert.save('file.jpg', 'jpeg')
     filejpg = "file.jpg"
 
     datoskey = post["pixiv_id"], post["id"]
