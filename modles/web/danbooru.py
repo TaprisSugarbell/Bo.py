@@ -73,6 +73,8 @@ def send_pic(file, filejpg, danboo_inline, varis, chat):
         caption["Characters"] = f"<b>Characters: #Original</b>\n"
     elif sauce != "original":
         caption["Sauce"] = f"<b>Sauce: #{sauce}</b>\n"
+    if parent_id != None:
+        caption["ParentID"] = f"<b>ParentID: </b><code>{parent_id}</code>\n"
     try:
         isinstance(character[2], str)
         caption["Characters"] = f"<b>Characters: {strlc}</b>\n"
@@ -84,8 +86,7 @@ def send_pic(file, filejpg, danboo_inline, varis, chat):
         timeout=20
     )
     chat.send_photo(
-        caption=f"<b>PostID: </b><code>{id}</code>\n" +
-                f"<b>ParentID: </b><code>{id}</code>\n" +
+        caption=f"<b>PostID: </b><code>{id}</code>\n" + caption["ParentID"] +
                 caption["Artist"] +
                 caption["Sauce"] +
                 caption["Characters"] +
