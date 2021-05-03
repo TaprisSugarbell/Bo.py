@@ -65,7 +65,7 @@ def send_pic(file, filejpg, danboo_inline, varis, chat):
     # Limpiando Artista
     artistl = re.sub(r"[^a-zA-Z0-9_# ]", "", artist)
     # Limpiando Sauce
-    saucel = re.sub(r"[^a-zA-Z0-9_# ]", "", sauce)
+    saucel = sauce.replace("-", "_")
     # Texto Foto
     caption = {}
     if isinstance(artistl, str):
