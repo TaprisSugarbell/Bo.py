@@ -1,6 +1,7 @@
 import os
 import re
 import wget
+import logging
 import requests
 from PIL import Image
 from pybooru import Danbooru
@@ -15,6 +16,7 @@ except:
 Input = 0
 api_key = Config.api_key
 usermame = Config.usermame
+logging.basicConfig(filename="app.log", level="DEBUG")
 
 def danbooru_callback(update, context):
     query = update.callback_query
@@ -24,13 +26,20 @@ def danbooru_callback(update, context):
     )
     return Input
 
-# def inline_danboo(url):
-#     source1 = InlineKeyboardButton(text="Source", url=url)
-#     source2 = InlineKeyboardButton(text="Source", url=url)
-#     danboo_inline = InlineKeyboardMarkup([source1, source2])
-#     return danboo_inline
+def inline_danboo(url, datoskey):
+    urls = url.split("/")
+    pixiv_id, id = datoskey
+    danbo = InlineKeyboardButton(text="Danbooru", url=f"https://danbooru.donmai.us/posts/{id}")
+    if urls[2] == "twitter.com":
+        source = InlineKeyboardButton(text="Twitter", url=url)
+    elif urls[2] == "i.pximg.net":
+        source = InlineKeyboardButton(text="Pixiv", url=f"http://pixiv.net/i/{pixiv_id}")
+    else:
+        source = InlineKeyboardButton(text="Source", url=url)
+    danboo_inline = InlineKeyboardMarkup([[danbo, source]])
+    return danboo_inline
 
-def send_pic(file, filejpg, varis, chat):
+def send_pic(file, filejpg, danboo_inline, varis, chat):
     id, source, tags_string, tags_string_general, parent_id, \
         character, artist, sauce, file_url, ext = varis
     # Esto agrega los tags
@@ -48,27 +57,46 @@ def send_pic(file, filejpg, varis, chat):
         lstcl.append(f"#{charact}")
     strlstc = " ".join(lstcl)
     strlc = re.sub(r"[^a-zA-Z0-9_# ]", "", strlstc)
-
+    # Limpiando Artista
+    artistl = re.sub(r"[^a-zA-Z0-9_# ]", "", artist)
+    # Texto Foto
+    caption = {}
+    if isinstance(artistl, str):
+        caption["Artist"] = f"<b>Artist: #{artistl}</b>\n"
+    if sauce == "original":
+        caption["Sauce"] = f"<b>Sauce: #Original</b>\n"
+        caption["Characters"] = f"<b>Characters: #Original</b>\n"
+    elif sauce != "original":
+        caption["Sauce"] = f"<b>Sauce: #{sauce}</b>\n"
+    try:
+        isinstance(character[2], str)
+        caption["Characters"] = f"<b>Characters: {strlc}</b>\n"
+    except:
+        pass
+    logging.info("Se creo el diccionario %s y se esta enviando la imagen", caption)
     chat.send_action(
         action=ChatAction.UPLOAD_PHOTO,
-        timeout=None
+        timeout=20
     )
     chat.send_photo(
-        caption=f"<b>PostID:</b><i><a href='https://danbooru.donmai.us/posts/{id}'> {id}</a></i>\n"
-                f"<b>ParentID:</b><i><a href='https://danbooru.donmai.us/posts/{parent_id}'> {parent_id}</a></i>\n"
-                f"<b>Artist: #{artist}</b>\n<b>Sauce: #{sauce}</b>\n<b>Characters: {strlc}</b>\n"
-                f"<b>Tags:</b> <i>{strl}</i>\n<b>Source:</b> {source}",
+        caption=f"<b>PostID: </b><code>{id}</code>\n" +
+                f"<b>ParentID: </b><code>{id}</code>\n" +
+                caption["Artist"] +
+                caption["Sauce"] +
+                caption["Characters"] +
+                f"<b>Tags:</b> <i>{strl}</i>",
         parse_mode=ParseMode.HTML,
-        photo=open(filejpg, "rb")
-        # reply_markup=danboo_inline
+        photo=open(filejpg, "rb"),
+        reply_markup=danboo_inline
     )
+    logging.info("Se esta subiendo la foto como documento")
     chat.send_action(
         action=ChatAction.UPLOAD_DOCUMENT,
-        timeout=None
+        timeout=20
     )
     chat.send_document(
         document=open(file, "rb"),
-        timeout=None
+        timeout=20
     )
 
 
@@ -84,6 +112,7 @@ def input_danbooru(update, context):
         post = client.post_show(filter)
     except:
         post = client.post_show(idpostj)
+    # Variables de Pybooru
     id, source, tags_string, tags_string_general, parent_id, \
         character, artist, sauce, file_url, ext = \
         post["id"], post["source"], post["tag_string"], post["tag_string_general"], post["parent_id"], \
@@ -94,6 +123,7 @@ def input_danbooru(update, context):
         post["id"], post["source"], post["tag_string"], post["tag_string_general"], post["parent_id"], \
         post["tag_string_character"], post["tag_string_artist"], post["tag_string_copyright"], \
         post["file_url"], post["file_ext"]
+    logging.info("Obteniendo variables %s", varis)
 
     archname = f"{id} {artist} {character}.{ext}"
     file = wget.download(file_url, archname)
@@ -104,8 +134,9 @@ def input_danbooru(update, context):
     fileresize.save('file.jpg', 'jpeg')
     filejpg = "file.jpg"
 
-    # danboo_inline = inline_danboo(source)
-    send_pic(file, filejpg, varis, chat)
+    datoskey = post["pixiv_id"], post["id"]
+    danboo_inline = inline_danboo(source, datoskey)
+    send_pic(file, filejpg, danboo_inline, varis, chat)
     os.unlink(file)
     os.unlink(filejpg)
     return ConversationHandler.END
