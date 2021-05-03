@@ -104,6 +104,14 @@ if __name__ == '__main__':
         fallbacks=[]
     ))
 
+    # Danbooru Channel2
+    dp.add_handler(ConversationHandler(
+        entry_points=[CommandHandler("ds", danbooru.input_danbooru),
+                      CallbackQueryHandler(pattern="ds", callback=danbooru.danbooru_callback)],
+        states={danbooru.Input: [MessageHandler(Filters.text, danbooru.input_danbooru)]},
+        fallbacks=[]
+    ))
+
     # Danbooru
     dp.add_handler(ConversationHandler(
         entry_points=[CommandHandler("danboo", danboo.input_danbooru),

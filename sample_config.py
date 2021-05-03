@@ -22,5 +22,7 @@ class Config(object):
     chatuser = os.getenv('chatuser')
     # Channel ID
     channel = os.getenv('channel')
+    # Channel ID2
+    channel2 = os.getenv('channel2')
 
 
