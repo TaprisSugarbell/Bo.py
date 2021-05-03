@@ -16,7 +16,7 @@ except:
 Input = 0
 api_key = Config.api_key
 usermame = Config.usermame
-logging.basicConfig(filename="app.log", level="DEBUG")
+# logging.basicConfig(filename="app.log", level="DEBUG")
 
 def danbooru_callback(update, context):
     query = update.callback_query
@@ -73,7 +73,7 @@ def send_pic(file, filejpg, danboo_inline, varis, chat):
         caption["Characters"] = f"<b>Characters: {strlc}</b>\n"
     except:
         pass
-    logging.info("Se creo el diccionario %s y se esta enviando la imagen", caption)
+    # logging.info("Se creo el diccionario %s y se esta enviando la imagen", caption)
     chat.send_action(
         action=ChatAction.UPLOAD_PHOTO,
         timeout=20
@@ -89,7 +89,7 @@ def send_pic(file, filejpg, danboo_inline, varis, chat):
         photo=open(filejpg, "rb"),
         reply_markup=danboo_inline
     )
-    logging.info("Se esta subiendo la foto como documento")
+    # logging.info("Se esta subiendo la foto como documento")
     chat.send_action(
         action=ChatAction.UPLOAD_DOCUMENT,
         timeout=20
@@ -123,7 +123,7 @@ def input_danbooru(update, context):
         post["id"], post["source"], post["tag_string"], post["tag_string_general"], post["parent_id"], \
         post["tag_string_character"], post["tag_string_artist"], post["tag_string_copyright"], \
         post["file_url"], post["file_ext"]
-    logging.info("Obteniendo variables %s", varis)
+    # logging.info("Obteniendo variables %s", varis)
 
     archname = f"{id} {artist} {character}.{ext}"
     file = wget.download(file_url, archname)
