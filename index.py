@@ -106,8 +106,8 @@ if __name__ == '__main__':
 
     # Danbooru
     dp.add_handler(ConversationHandler(
-        entry_points=[CommandHandler("danbooru", danboo.input_danbooru),
-                      CallbackQueryHandler(pattern="danbooru", callback=danboo.danbooru_callback)],
+        entry_points=[CommandHandler("danboo", danboo.input_danbooru),
+                      CallbackQueryHandler(pattern="danboo", callback=danboo.danbooru_callback)],
         states={danboo.Input: [MessageHandler(Filters.text, danboo.input_danbooru)]},
         fallbacks=[]
     ))
