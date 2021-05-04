@@ -26,24 +26,7 @@ def danbooru_callback(update, context):
     )
     return Input
 
-def inline_danboo(url, datoskey):
-    urls = url.split("/")
-    pixiv_id, id, file_url = datoskey
-    danbo = InlineKeyboardButton(text="Danbooru", url=f"https://danbooru.donmai.us/posts/{id}")
-    dirdanbo = InlineKeyboardButton(text="Direct Link", url=file_url)
-    try:
-        urls[2] == "twitter.com"
-        source = InlineKeyboardButton(text="Twitter", url=url)
-        danboo_inline = InlineKeyboardMarkup([[danbo, dirdanbo], [source]])
-    except:
-        if pixiv_id != None:
-            source = InlineKeyboardButton(text="Pixiv", url=f"http://pixiv.net/i/{pixiv_id}")
-            danboo_inline = InlineKeyboardMarkup([[danbo, dirdanbo], [source]])
-        else:
-            danboo_inline = InlineKeyboardMarkup([[danbo, dirdanbo]])
-    return danboo_inline
-
-def send_pic(file, filejpg, danboo_inline, varis, chat, context):
+def send_pic(lfu, varis, chat, context):
     id, source, tags_string, tags_string_general, parent_id, \
         character, artist, sauce, file_url, ext = varis
     # Esto agrega los tags
@@ -90,30 +73,21 @@ def send_pic(file, filejpg, danboo_inline, varis, chat, context):
         action=ChatAction.UPLOAD_PHOTO,
         timeout=20
     )
-    chat.send_photo(
-        caption=f"<b>PostID: </b><code>{id}</code>\n" +
+    chat.send_message(
+        text=f"<b>PostID: </b><code>{id}</code>\n" +
                 f"<b>ParentID: </b><code>{parent_id}</code>\n" +
                 caption["Artist"] +
                 caption["Sauce"] +
                 caption["Characters"] +
-                f"<b>Tags:</b> <i>{strl}</i>",
-        parse_mode=ParseMode.HTML,
-        photo=open(filejpg, "rb"),
-        reply_markup=danboo_inline
-    )
-    # logging.info("Se esta subiendo la foto como documento")
-    chat.send_action(
-        action=ChatAction.UPLOAD_DOCUMENT,
-        timeout=20
-    )
-    chat.send_document(
-        document=open(file, "rb"),
-        timeout=20
+                f"<b>Tags:</b> <i>{strl}</i>"
+                f"<a href='{lfu}'>&#8205;</a>",
+        parse_mode=ParseMode.HTML
     )
 
 
 def input_danbooru(update, context):
     chat = update.message.chat
+    chat1 = update.effective_chat
     idpost = context.args
     idpostj = "".join(idpost)
     idposts = idpostj.split("/")
@@ -136,21 +110,7 @@ def input_danbooru(update, context):
         post["tag_string_character"], post["tag_string_artist"], post["tag_string_copyright"], \
         post["file_url"], post["file_ext"]
     # logging.info("Obteniendo variables %s", varis)
-
-    archname = f"{id} {artist} {character}.{ext}"
-    file = wget.download(file_url, archname)
-    # Reduciendo Tamaño
-    img = Image.open(file)
-    size = img.size
-    fileresize = img.resize(size)
-    fileconvert = fileresize.convert("RGB")
-    fileconvert.save('file.jpg', 'jpeg')
-    filejpg = "file.jpg"
-
+    lfu = post["large_file_url"]
     # Datos Botones
-    datoskey = post["pixiv_id"], post["id"], post["file_url"]
-    danboo_inline = inline_danboo(source, datoskey)
-    send_pic(file, filejpg, danboo_inline, varis, chat, context)
-    os.unlink(file)
-    os.unlink(filejpg)
+    send_pic(lfu, varis, chat, context)
     return ConversationHandler.END
