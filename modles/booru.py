@@ -92,7 +92,10 @@ def kona_show(link):
         pass
     except IndexError:
         pass
-    url = soup.find_all(attrs={"class": "original-file-unchanged"})[0].get("href")
+    try:
+        url = soup.find_all(attrs={"class": "original-file-unchanged"})[0].get("href")
+    except:
+        url = soup.find_all(attrs={"class": "original-file-changed"})[0].get("href")
     infodic["file_ext"] = url[-3:]
     infodic["file_url"] = url
     return infodic
@@ -375,15 +378,22 @@ def send_preview(caption, inline, chat):
 
 
 def kona_clean(tags):
-    try:
-        tag_split = " ".join(tags)
-    except:
-        tag_split = "None"
-    return tag_split
+    if tags == "None":
+        tag_clean = "<code>None</code>"
+    else:
+        tag_list = []
+        for tag in tags:
+            tag_list.append(f"</code>{tag}</code>")
+        tag_join = " ".join(tag_list)
+        tag_clean = re.sub(r"[^a-zA-Z0-9_#</> ]", "", tag_join)
+    return tag_clean
 
 
 def caption_kona(post):
-    tags, post_id, parent_id = post["tags"], post["id"], post["parent_id"]
+    try:
+        tags, post_id, parent_id = post["tags"], post["id"], post["parent_id"]
+    except:
+        tags, post_id, parent_id = post["tags"], post["id"], "None"
     # Esto agrega los tags
     tags_clean = clean_tags(tags)
     # Parent Clean
@@ -396,8 +406,8 @@ def caption_kona(post):
 
 
 def inline_kona(post):
-    id, file_url = post["id"], post["file_url"]
-    kona = btn_url_gen("Konachan", f"https://konachan.com/post/show/{id}")
+    post_id, file_url = post["id"], post["file_url"]
+    kona = btn_url_gen("Konachan", f"https://konachan.com/post/show/{post_id}")
     dirkona = btn_url_gen("Direct Link", file_url)
     inline = btn_markup_2(kona, dirkona)
     return inline
