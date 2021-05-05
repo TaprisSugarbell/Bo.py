@@ -1,8 +1,8 @@
 from modles import varis
 from modles.reverse import gis
-from modles.web import webshot, danbooru, danboo, danb, pda
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 from modles.cmds import QR, aud, URL, downanime, Password, pytb
+from modles.web import webshot, danbooru, danboo, danb, pda, mebooru, konachan
 from telegram.ext import Updater, CommandHandler,  CallbackQueryHandler, ConversationHandler, MessageHandler, Filters
 
 def start(update, context):
@@ -128,61 +128,24 @@ if __name__ == '__main__':
         fallbacks=[]
     ))
 
+    #  Konachan
+    dp.add_handler(ConversationHandler(
+        entry_points=[CommandHandler("kn", mebooru.input_konachan),
+                      CallbackQueryHandler(pattern="kn", callback=mebooru.konachan_callback)],
+        states={mebooru.Input: [MessageHandler(Filters.text, mebooru.input_konachan)]},
+        fallbacks=[]
+    ))
+
+    #  Konachan Channel
+    dp.add_handler(ConversationHandler(
+        entry_points=[CommandHandler("k", konachan.input_konachan),
+                      CallbackQueryHandler(pattern="k", callback=konachan.konachan_callback)],
+        states={konachan.Input: [MessageHandler(Filters.text, konachan.input_konachan)]},
+        fallbacks=[]
+    ))
+
     updater.start_polling()
     updater.idle()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
