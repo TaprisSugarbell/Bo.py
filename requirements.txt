@@ -22,3 +22,4 @@ ffmpeg
 requests_toolbelt
 imgur-uploader
 Pybooru
+html-to-json
