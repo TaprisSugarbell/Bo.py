@@ -201,15 +201,18 @@ def btn_markup_3(btn, btn2, btn3):
 
 
 def inline_test(post):
-    pixiv_id, id, file_url, url = post["pixiv_id"], post["id"], post["file_url"], post["source"]
+    pixiv_id, post_id, file_url, url = post["pixiv_id"], post["id"], post["file_url"], post["source"]
     urls = url.split("/")
-    danbo = btn_url_gen("Danbooru", f"https://danbooru.donmai.us/posts/{id}")
+    danbo = btn_url_gen("Danbooru", f"https://danbooru.donmai.us/posts/{post_id}")
     dirdanbo = btn_url_gen("Direct Link", file_url)
     if urls[2] == "twitter.com":
         source = btn_url_gen("Twitter", url)
         inline = btn_markup_3(danbo, dirdanbo, source)
     elif urls[2] == "e-hentai.org":
-        source = InlineKeyboardButton(text="E-Hentai", url=url)
+        source = btn_url_gen("E-Hentai", url)
+        inline = btn_markup_3(danbo, dirdanbo, source)
+    elif urls[2] == "arca.live":
+        source = btn_url_gen("Aka Live", url)
         inline = btn_markup_3(danbo, dirdanbo, source)
     elif pixiv_id != None:
         source = btn_url_gen("Pixiv", f"http://pixiv.net/i/{pixiv_id}")
