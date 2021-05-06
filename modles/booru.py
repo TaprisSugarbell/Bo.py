@@ -2,6 +2,7 @@ import re
 import json
 import requests
 import html_to_json
+import pyshorteners
 from PIL import Image
 from bs4 import BeautifulSoup
 from telegram import ChatAction, ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
@@ -392,7 +393,7 @@ def kona_clean(tags):
     else:
         tag_list = []
         for tag in tags:
-            tag_list.append(f"</code>{tag}</code>")
+            tag_list.append(f"<code>{tag}</code>")
         tag_join = " ".join(tag_list)
         tag_clean = re.sub(r"[^a-zA-Z0-9_#</> ]", "", tag_join)
     return tag_clean
@@ -415,9 +416,11 @@ def caption_kona(post):
 
 
 def inline_kona(post):
+    s = pyshorteners.Shortener()
     post_id, file_url = post["id"], post["file_url"]
+    short = s.chilpit.short(file_url)
     kona = btn_url_gen("Konachan", f"https://konachan.com/post/show/{post_id}")
-    dirkona = btn_url_gen("Direct Link", file_url)
+    dirkona = btn_url_gen("Direct Link", f"{short}")
     inline = btn_markup_2(kona, dirkona)
     return inline
 
