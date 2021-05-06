@@ -408,6 +408,8 @@ def caption_kona(post):
     tags_clean = clean_tags(tags)
     # Parent Clean
     parent_clean = kona_clean(parent_id)
+    if len(parent_clean) == 0:
+        parent_clean = "<code>None</code>"
     # Texto Caption
     caption_clean = f"<b>PostID: </b><code>{post_id}</code>\n" \
                     f"<b>ParentID: </b>{parent_clean}\n" \
@@ -468,7 +470,7 @@ def channel_kona(files, caption, inline, chat, context):
     context.bot.send_document(
         document=open(file, "rb"),
         chat_id=channel,
-        timeout=20
+        timeout=35
     )
 
 
