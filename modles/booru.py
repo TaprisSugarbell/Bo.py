@@ -306,6 +306,8 @@ def caption_text(post):
     clean_character = clean_tags(character)
     # Limpiando --------------------------------- Artista
     clean_artist = clean_one(artist)
+    if len(clean_artist) == 0:
+        clean_artist = "None"
     # Limpiando --------------------------------- Sauce
     clean_sauce = clean_tags(sauce)
     # Texto Caption
@@ -342,6 +344,10 @@ def caption_preview(post):
     clean_character = clean_tags(character)
     # Limpiando --------------------------------- Artista
     clean_artist = clean_one(artist)
+    if len(clean_artist) == 0:
+        clean_artist = "None"
+    else:
+        pass
     # Limpiando --------------------------------- Sauce
     clean_sauce = clean_tags(sauce)
     # Texto Caption
@@ -359,12 +365,12 @@ def caption_preview(post):
     except:
         pass
     preview = f"<b>PostID: </b><code>{post_id}</code>\n" \
-                    f"<b>ParentID: </b><code>{parent_id}</code>\n" + \
-                    caption["Artist"] + \
-                    caption["Sauce"] + \
-                    caption["Characters"] + \
-                    f"<b>Tags:</b> <i>{tags_clean}</i>" \
-                    f"<a href='{lfu}'>&#8205;</a>"
+              f"<b>ParentID: </b><code>{parent_id}</code>\n" + \
+              caption["Artist"] + \
+              caption["Sauce"] + \
+              caption["Characters"] + \
+              f"<b>Tags:</b> <i>{tags_clean}</i>" \
+              f"<a href='{lfu}'>&#8205;</a>"
     return preview
 
 
