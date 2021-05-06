@@ -57,7 +57,8 @@ def download_booru(post_link):
     try:
         id = post["id"]
         artist = post["tag_string_artist"]
-        character = post["tag_string_character"]
+        character_list = post["tag_string_character"].split(" ")
+        character = " ".join(character_list[:4])
         ext = post["file_ext"]
         nimg = f"{id} {artist} {character}.{ext}"
 
